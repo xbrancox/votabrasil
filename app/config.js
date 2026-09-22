@@ -1,0 +1,5 @@
+/* VotaBrasil app config - backend atual preservado (Railway sera decidido depois) */
+window.VotaBrasil=window.VotaBrasil||{};
+window.VotaBrasil.API_BASE='https://mudabrasil-production-79eb.up.railway.app';
+window.API_BASE=window.VotaBrasil.API_BASE;
+window.MudaBrasil=window.VotaBrasil; /* compatibilidade com codigo antigo */
