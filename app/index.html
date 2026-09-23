@@ -587,9 +587,9 @@ function atualizarCta(){
 }
 
 /* --- sheet de escolha (busca no TSE real) --- */
-let sheetCargo='',sheetLista=[],sheetTimer=null;
+let sheetCargo='', sheetPag=1, sheetTotalPag=1, sheetAcumulados=[],sheetLista=[],sheetTimer=null;
 function abrirSheet(cargo){
-  sheetCargo=cargo;sheetLista=[];
+  sheetCargo=cargo;sheetLista=[];sheetPag=1;sheetTotalPag=1;sheetAcumulados=[];
   document.getElementById('cand-cargo').textContent='Escolher · '+cargo;
   document.getElementById('cand-busca').value='';
   document.getElementById('cand-sheet').classList.add('on');
@@ -604,7 +604,7 @@ async function carregarCandidatos(){
   st.textContent='Buscando candidatos reais do TSE…';
   document.getElementById('cand-list').innerHTML='';
   try{
-    let u='/api/candidatos-tse?cargo='+num+'&porPagina=500';
+    let u='/api/candidatos-tse?cargo='+num+'&porPagina=500&pagina='+sheetPag;
     if(uf && uf!=='BR')u+='&uf='+encodeURIComponent(uf);
     if(busca)u+='&busca='+encodeURIComponent(busca);
     let j=await fetchJson(u);
@@ -615,7 +615,7 @@ async function carregarCandidatos(){
       sheetLista=(j.candidatos||[]).filter(c=>c.sq||c.numero);
     }
     if(!sheetLista.length) throw new Error('Nenhum candidato retornado pelo servidor');
-    st.textContent=sheetLista.length+' candidatos oficiais'+(uf&&uf!=='BR'?' em '+uf:'')+'. Toque para escolher.';
+    st.textContent=sheetLista.length+' candidatos (pagina '+sheetPag+'/'+sheetTotalPag+')'+(uf&&uf!==''BR''?'' em ''+uf:'''')+''. Toque para escolher.'';
     renderCandList();
   }catch(e){
     console.warn('[VotaBrasil] Erro ao carregar candidatos:', e);
