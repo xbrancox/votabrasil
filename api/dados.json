@@ -1,0 +1,14 @@
+{
+    "gerado_em":  "2026-09-23T19:07:21",
+    "modulos":  [
+                    "pdf-cassacao",
+                    "notificacoes-pwa",
+                    "dashboard-politico",
+                    "gamificacao",
+                    "api-publica"
+                ],
+    "versao":  "1.1.0",
+    "plataforma":  "VotaBrasil",
+    "regra_revogacao":  "70% dos votos que elegeram = cassacao",
+    "licenca":  "CC-BY-4.0"
+}
