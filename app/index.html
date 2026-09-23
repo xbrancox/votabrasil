@@ -615,7 +615,7 @@ async function carregarCandidatos(){
       sheetLista=sheetLista.concat((j.candidatos||[]).filter(c=>c.sq||c.numero));sheetTotalPag=Math.max(1,Number(j.totalPaginas||1));
     }
     if(!sheetLista.length) throw new Error('Nenhum candidato retornado pelo servidor');
-    st.textContent=sheetLista.length+' candidatos (pagina '+sheetPag+'/'+sheetTotalPag+')'+(uf&&uf!==''BR''?'' em ''+uf:'''')+''. Toque para escolher.'';
+    st.textContent=sheetLista.length+" candidatos (pagina "+sheetPag+"/"+sheetTotalPag+")"+((uf&&uf!=="BR")?" em "+uf:"")+". Toque para escolher.";
     renderCandList();
   }catch(e){
     console.warn('[VotaBrasil] Erro ao carregar candidatos:', e);
