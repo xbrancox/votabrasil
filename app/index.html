@@ -587,7 +587,7 @@ function atualizarCta(){
 }
 
 /* --- sheet de escolha (busca no TSE real) --- */
-let sheetCargo='', sheetPag=1, sheetTotalPag=1, sheetAcumulados=[],sheetLista=[],sheetTimer=null;
+let sheetCargo='', sheetPag=1, sheetTotalPag=1, sheetAcumulados=[];window.sheetCtl={get p(){return sheetPag},set p(v){sheetPag=v},get tot(){return sheetTotalPag},get lista(){return sheetLista},go:function(){return carregarCandidatos()}},sheetLista=[],sheetTimer=null;
 function abrirSheet(cargo){
   sheetCargo=cargo;sheetLista=[];sheetPag=1;sheetTotalPag=1;sheetAcumulados=[];
   document.getElementById('cand-cargo').textContent='Escolher · '+cargo;
@@ -608,11 +608,11 @@ async function carregarCandidatos(){
     if(uf && uf!=='BR')u+='&uf='+encodeURIComponent(uf);
     if(busca)u+='&busca='+encodeURIComponent(busca);
     let j=await fetchJson(u);
-    sheetLista=(j.candidatos||[]).filter(c=>c.sq||c.numero);
+    sheetLista=sheetLista.concat((j.candidatos||[]).filter(c=>c.sq||c.numero));sheetTotalPag=Math.max(1,Number(j.totalPaginas||1));
     if(!sheetLista.length && uf && uf!=='BR'){
       const u2='/api/candidatos-tse?cargo='+num+'&porPagina=500'+(busca?'&busca='+encodeURIComponent(busca):'');
       j=await fetchJson(u2);
-      sheetLista=(j.candidatos||[]).filter(c=>c.sq||c.numero);
+      sheetLista=sheetLista.concat((j.candidatos||[]).filter(c=>c.sq||c.numero));sheetTotalPag=Math.max(1,Number(j.totalPaginas||1));
     }
     if(!sheetLista.length) throw new Error('Nenhum candidato retornado pelo servidor');
     st.textContent=sheetLista.length+' candidatos (pagina '+sheetPag+'/'+sheetTotalPag+')'+(uf&&uf!==''BR''?'' em ''+uf:'''')+''. Toque para escolher.'';
@@ -945,6 +945,25 @@ document.addEventListener('paste',e=>{if(!document.getElementById('s-conf').clas
 })();
 if(location.hash==='#conferir')go('s-conf');
 if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{})}
+</script>
+<script>
+(function(){
+  if(document.getElementById('vb-mais'))return;
+  var b=document.createElement('button');
+  b.id='vb-mais';
+  b.style.cssText='position:fixed;right:12px;bottom:84px;z-index:9999;background:#009739;color:#fff;border:0;border-radius:24px;padding:12px 18px;font-weight:700;cursor:pointer;display:none;box-shadow:0 4px 14px rgba(0,0,0,.35)';
+  b.onclick=function(){var c=window.sheetCtl;if(!c)return;c.p=c.p+1;c.go();setTimeout(atual,800);};
+  function atual(){
+    var c=window.sheetCtl;
+    if(!c){b.style.display='none';return;}
+    var tem=c.lista&&c.lista.length>0;
+    var falta=c.tot>c.p;
+    b.style.display=(tem&&falta)?'block':'none';
+    b.textContent='Carregar mais (pag '+c.p+'/'+c.t+') >';
+  }
+  setInterval(atual,1000);
+  document.body.appendChild(b);
+})();
 </script>
 </body>
 </html>
