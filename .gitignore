@@ -1,7 +1,52 @@
+# ===============================
+# VotaBrasil — Ignorar arquivos locais
+# ===============================
+
+# Urnas de voto (ANONIMATO GARANTIDO)
+server/data/votos.db
+server/data/votos.json
+
+# Sal criptográfico (não deve ser versionado)
+server/data/.salt
+
+# Cache de enriquecimento (regenerável)
+server/data/enrich/
+
+# Dependências Node.js
 node_modules/
+
+# Testes e artefatos locais
+tests/screenshots/
 *.log
-LOG-*.txt
-.env
-server/*.sqlite
-server/data/*.sqlite
+
+# Arquivos do sistema
 .DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Temporários
+tmp/
+temp/
+
+# Sujidade de sessão (diagnósticos e rascunhos descartáveis)
+diagG-temp.js
+*-temp.js
+*-temp.ps1
+rec-*.txt
+up-*.json
+upload-*.ps1
+
+# === FIM .gitignore ===
+# Snapshots públicos do front (data/politicos.json e data/pls.json ficam
+# versionados para o GitHub Pages carregar sem servidor). Caches do servidor:
+server/data/enrich/
+server/data/pls_reais.json
+node_modules/
+
+# Config local do usuario (nunca versionar)
+app/config.js
+
+# Códigos de voto emitidos (nunca versionar)
+server/data/vote_codes.json

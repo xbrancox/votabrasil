@@ -1,0 +1,83 @@
+# ===============================
+# VotaBrasil — Ignorar arquivos locais
+# ===============================
+
+# Urnas de voto (ANONIMATO GARANTIDO)
+server/data/votos.db
+server/data/votos.json
+
+# Sal criptográfico (não deve ser versionado)
+server/data/.salt
+
+# Cache de enriquecimento (regenerável)
+server/data/enrich/
+
+# Dependências Node.js
+node_modules/
+
+# Testes e artefatos locais
+tests/screenshots/
+*.log
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Temporários
+tmp/
+temp/
+
+# Sujidade de sessão (diagnósticos e rascunhos descartáveis)
+diagG-temp.js
+*-temp.js
+*-temp.ps1
+rec-*.txt
+up-*.json
+upload-*.ps1
+
+# === FIM .gitignore ===
+# Snapshots públicos do front (data/politicos.json e data/pls.json ficam
+# versionados para o GitHub Pages carregar sem servidor). Caches do servidor:
+server/data/enrich/
+server/data/pls_reais.json
+node_modules/
+
+# Config local do usuario (nunca versionar)
+app/config.js
+
+# Códigos de voto emitidos (nunca versionar)
+server/data/vote_codes.json
+
+# ===== ↑ 以上同步自 .gitignore（「从 .gitignore 同步」只重写以上部分）=====
+.git/
+.hg/
+.svn/
+bower_components/
+jspm_packages/
+__pycache__/
+site-packages/
+venv/
+coverage/
+htmlcov/
+lcov-report/
+cmakefiles/
+cmake-build-*/
+bazel-*/
+pods/
+deriveddata/
+storybook-static/
+playwright-report/
+test-results/
+allure-results/
+allure-report/
+cdk.out/
+*.egg-info/
+*.dist-info/
+eggs/
+pip-wheel-metadata/
+wheels/
+# ----- ↑ 以上为 ZCode 默认排除规则（自定义规则请写在本行下方，不会被同步/恢复改动）-----
+# 自定义规则写在下方（本行提示可删除）

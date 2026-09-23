@@ -1,6 +1,58 @@
-/* VotaBrasil SW v9 - instalacao resiliente (1 falha nao mata o cache) */
-const CACHE='votabrasil-v9';
-const ASSETS=['./','./index.html','./manifest.webmanifest','./icon.svg'];
-self.addEventListener('install',e=>{e.waitUntil((async()=>{const c=await caches.open(CACHE);await Promise.allSettled(ASSETS.map(u=>c.add(u).catch(()=>null)));self.skipWaiting();})());});
-self.addEventListener('activate',e=>{e.waitUntil((async()=>{const ks=await caches.keys();await Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)));self.clients.claim();})());});
-self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;e.respondWith((async()=>{const c=await caches.open(CACHE);const hit=await c.match(e.request,{ignoreSearch:true});const net=fetch(e.request).then(r=>{try{if(r&&r.ok&&new URL(e.request.url).origin===location.origin){c.put(e.request,r.clone());}}catch(_){}return r;}).catch(()=>hit||c.match('./index.html'));return hit||net;})());});
+const CACHE = 'votabrasil-v36';
+const ASSETS = [
+  './',
+  './index.html',
+  './manifest.webmanifest',
+  './icon.svg',
+  './logo.svg'
+];
+
+// Install event with cache handling
+self.addEventListener('install', e => {
+  e.waitUntil(
+    caches.open(CACHE).then(c => {
+      return Promise.allSettled(
+        ASSETS.map(url => c.add(url).catch(err => console.warn('[SW] Falha ao cachear asset:', url, err)))
+      );
+    })
+  );
+  self.skipWaiting();
+});
+
+// Activate event - clear old caches
+self.addEventListener('activate', e => {
+  e.waitUntil(
+    caches.keys().then(keys => 
+      Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
+    ).then(() => self.clients.claim())
+  );
+});
+
+// Fetch event with fallback
+self.addEventListener('fetch', e => {
+  if (e.request.method !== 'GET') return;
+  
+  e.respondWith(
+    caches.match(e.request).then(response => {
+      if (response) {
+        return response;
+      }
+      return fetch(e.request).then(response => {
+        const copy = response.clone();
+        caches.open(CACHE).then(c => {
+          c.put(e.request, copy);
+        });
+        return response;
+      }).catch(() => {
+        // Fallback for offline
+        if (e.request.url.endsWith('.html')) {
+          return caches.match('./index.html');
+        }
+        return new Response('Recurso não disponível offline', { 
+          status: 404, 
+          statusText: 'Not Found' 
+        });
+      });
+    })
+  );
+});

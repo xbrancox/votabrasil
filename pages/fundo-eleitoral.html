@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fundo Eleitoral 2026 · VotaBrasil</title>
+<link rel="canonical" href="https://mudabrasil-redesign-production.up.railway.app/pages/fundo-eleitoral.html">
+<meta property="og:title" content="Fundo Eleitoral 2026 · VotaBrasil">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mudabrasil-redesign-production.up.railway.app/pages/fundo-eleitoral.html">
+<meta property="og:image" content="https://mudabrasil-redesign-production.up.railway.app/og-image.png">
+<meta property="og:site_name" content="VotaBrasil">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://mudabrasil-redesign-production.up.railway.app/og-image.png">
+<link rel="icon" type="image/svg+xml" href="../icon.svg">
+  <meta name="description" content="Dados públicos do TSE: quanto o Fundo Especial de Financiamento de Campanha (FEFC) destinou a cada partido nas Eleições 2026, e quando os repasses por candidato serão publicados.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/parlamentares.css">
+<style>
+.fx-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px}
+@media(max-width:760px){.fx-stats{grid-template-columns:1fr}}
+.fx-stat{background:var(--mb-bg-card);border:1px solid var(--mb-border);border-radius:var(--mb-radius-lg);padding:18px 20px}
+.fx-stat b{display:block;font-family:var(--mb-font-title);font-size:26px;color:var(--mb-mint);line-height:1.2}
+.fx-stat span{color:var(--mb-text-muted);font-size:13px}
+.fx-panel{background:var(--mb-bg-card);border:1px solid var(--mb-border);border-radius:var(--mb-radius-lg);padding:20px;margin-bottom:22px}
+.fx-panel h3{font-size:16px;margin-bottom:8px}
+.fx-panel p{color:var(--mb-text-2);font-size:14px;line-height:1.6}
+.fx-row{padding:14px 0;border-bottom:1px solid var(--mb-border)}
+.fx-row:last-child{border-bottom:none}
+.fx-line{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:7px}
+.fx-nome{font-weight:700;font-size:15px}
+.fx-nome small{font-weight:400;color:var(--mb-text-muted);font-size:12px}
+.fx-val{font-family:var(--mb-font-title);font-weight:800;color:var(--mb-mint);white-space:nowrap}
+.fx-val small{color:var(--mb-text-muted);font-weight:500;font-size:11px;margin-left:6px}
+.fx-bar{height:10px;border-radius:6px;background:var(--mb-bg-input);overflow:hidden}
+.fx-bar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--mb-blue),var(--mb-mint))}
+.fx-cotas{margin-top:8px;color:var(--mb-text-muted);font-size:12.5px;line-height:1.6}
+.fx-empty{text-align:center;padding:34px 16px;color:var(--mb-text-2);font-size:14.5px;line-height:1.7}
+.fx-empty .big{font-size:38px;display:block;margin-bottom:10px}
+@media(max-width:960px){header nav{display:none}.ham{display:block}.mnav.open{display:flex}}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="../config.local.js?v=2"></script>
+  <script src="../js/site-header.js?v=3"></script>
+</head>
+<body>
+  <!-- ===================== TÍTULO DA PÁGINA ===================== -->
+  <section class="mb-hero">
+    <h1>💰 <strong>Fundo Eleitoral</strong></h1>
+    <p class="mb-hero-sub">Quem recebeu dinheiro público de campanha — direto das fontes oficiais do <strong>TSE</strong>. Transparência total para o eleitor decidir.</p>
+  </section>
+
+  <!-- ===================== ABAS ===================== -->
+  <section class="mb-section">
+    <div class="mb-tabs" role="tablist">
+      <button class="mb-tab active" data-tab="partidos" role="tab">
+        <span class="mb-tab-ico">🏛️</span>
+        <span>Por partido</span>
+      </button>
+      <button class="mb-tab" data-tab="candidatos" role="tab">
+        <span class="mb-tab-ico">🗳️</span>
+        <span>Por político / candidato</span>
+      </button>
+    </div>
+
+    <div id="fx-resumo"><p class="mb-muted">Carregando dados públicos do TSE…</p></div>
+
+    <!-- ABA 1: POR PARTIDO -->
+    <div class="mb-tab-panel active" id="tab-partidos" role="tabpanel">
+      <div class="fx-panel">
+        <h3>📖 O que é o Fundo Eleitoral?</h3>
+        <p>O <strong>FEFC</strong> (Fundo Especial de Financiamento de Campanha) é dinheiro do Orçamento da União usado nas eleições. Em <strong id="fx-ano">—</strong>, o TSE distribuiu o total entre os partidos registrados — cabe a cada <strong>direção partidária</strong> repassar o valor às campanhas dos seus candidatos. Este ranking mostra exatamente <strong>quanto cada partido recebeu</strong> e como dividiu entre as cotas.</p>
+      </div>
+      <div class="mb-search-bar">
+        <input type="search" id="fx-pq" class="mb-input" placeholder="Filtrar por sigla ou nome do partido…" oninput="FX.renderPartidos()">
+      </div>
+      <div class="fx-panel" id="fx-lista-p"><p class="mb-muted">Carregando…</p></div>
+    </div>
+
+    <!-- ABA 2: POR POLÍTICO -->
+    <div class="mb-tab-panel" id="tab-candidatos" role="tabpanel">
+      <div class="fx-panel" id="fx-ranking-top">
+        <h3>🏆 Maiores beneficiários do FEFC até agora</h3>
+        <p class="mb-muted-sm" style="margin-bottom:10px;">Ranking dos candidatos que mais declararam ter recebido do Fundo na prestação de contas pública (fonte TSE, snapshot abaixo). Clique em um nome para abrir a ficha no Radar Político.</p>
+        <div id="fx-ranking-lista"><p class="mb-muted">Carregando…</p></div>
+      </div>
+      <div class="fx-panel" id="fx-lista-c"><p class="mb-muted">Carregando…</p></div>
+      <div class="mb-search-bar" id="fx-busca-c" hidden>
+        <input type="search" id="fx-q" class="mb-input" placeholder="Buscar nome ou partido…" oninput="FX.renderCandidatos()">
+      </div>
+      <div class="fx-panel" id="fx-detalhe-c" hidden>
+        <h3 id="fx-det-titulo">👤 Candidato</h3>
+        <p class="mb-muted-sm" id="fx-det-sub" style="margin-bottom:10px;"></p>
+        <div id="fx-det-comparativo"></div>
+        <details id="fx-det-repasses" ontoggle="if(this.open&&!this.dataset.loaded){FX.carregarRepasses(this);}">
+          <summary style="cursor:pointer;font-weight:600;color:var(--mb-mint);padding:6px 0;">📑 Ver todos os repasses recebidos (prestação de contas)</summary>
+          <div id="fx-det-repasses-body" class="mb-muted-sm" style="padding:8px 0;">⏳ Carregando linhas da prestação de contas…</div>
+        </details>
+      </div>
+      <div class="fx-panel" id="fx-dica-c" hidden>
+        <p>💡 Enquanto os repasses individuais não são publicados, você pode acompanhar os candidatos reais no <a href="parlamentares.html">Radar Político</a> — a ficha de cada político mostra o valor do fundo quando houver dado público disponível.</p>
+      </div>
+    </div>
+
+    <div class="fx-panel" style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;justify-content:space-between">
+      <p style="margin:0">📊 Quer os números brutos para planilha, matéria ou análise? Baixe o CSV oficial com todos os partidos e cotas.</p>
+      <a class="mb-btn-primary" id="fx-csv" href="#" download style="text-decoration:none;white-space:nowrap">⬇️ Baixar CSV (Excel)</a>
+    </div>
+
+    <p class="mb-muted-sm" id="fx-fonte" style="margin-top:8px"></p>
+  </section>
+
+  <script>
+  /* ===== FUNDO ELEITORAL — dados públicos TSE via API ===== */
+  var FX = (function () {
+    'use strict';
+    var BASE = (window.VotaBrasil && typeof window.VotaBrasil.API_BASE === 'string')
+      ? window.VotaBrasil.API_BASE
+      : 'https://mudabrasil-redesign-production.up.railway.app';
+    var DADOS = null;
+
+    function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]; }); }
+    function brl(v) { return 'R$ ' + Number(v || 0).toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 }); }
+    var PREPS = { da:1, de:1, do:1, das:1, dos:1, e:1, a:1, o:1, ab:1, del:1, di:1, du:1, la:1, le:1, van:1 };
+    function titleCase(s) {
+      var low = String(s || '').toLowerCase().replace(/\s+/g, ' ').trim();
+      return low.split(' ').map(function (w, i) {
+        if (i > 0 && PREPS[w]) return w;
+        return w.charAt(0).toUpperCase() + w.slice(1);
+      }).join(' ');
+    }
+
+    function api(caminho) {
+      return fetch(BASE + caminho).then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      });
+    }
+
+    function carregar() {
+      Promise.all([api('/api/fundo-eleitoral/partidos'), api('/api/fundo-eleitoral/candidatos'), api('/api/fundo-eleitoral/resumo')])
+        .then(function (rs) {
+          DADOS = { partidos: rs[0].partidos || [], candidatos: rs[1].candidatos || [], resumo: rs[2], aviso: rs[1].aviso || '', urlFonte: rs[0].urlFonte || '' };
+          renderResumo(); renderPartidos(); renderRankingTop(); renderCandidatos();
+        })
+        .catch(function (e) {
+          document.getElementById('fx-resumo').innerHTML = '<div class="fx-panel"><p>⚠️ Não foi possível carregar os dados agora (' + esc(e.message) + '). Recarregue a página em instantes.</p></div>';
+        });
+    }
+
+    function renderResumo() {
+      var r = DADOS.resumo;
+      document.getElementById('fx-ano').textContent = r.ano || '2026';
+      document.getElementById('fx-resumo').innerHTML =
+        '<div class="fx-stats">' +
+        '<div class="fx-stat"><b>' + brl(r.totalDistribuido) + '</b><span>dinheiro público distribuído (FEFC ' + esc(r.ano || '') + ')</span></div>' +
+        '<div class="fx-stat"><b>' + (r.partidosComRecursos || 0) + '</b><span>partidos beneficiados</span></div>' +
+        '<div class="fx-stat"><b>' + (r.candidatosBeneficiados || 0) + '</b><span>candidatos com repasse publicado</span></div>' +
+        '</div>' +
+        '<p class="mb-muted-sm" style="margin-bottom:18px">Fonte: ' + esc(r.fonte) + ' · snapshot de ' + esc((r.atualizadoEm || '').slice(0, 10)) + '.</p>';
+      document.getElementById('fx-fonte').innerHTML = 'Fonte oficial: <a href="' + esc(DADOS.urlFonte) + '" target="_blank" rel="noopener">TSE — Cálculo de distribuição dos recursos do FEFC ↗</a>' +
+        (DADOS.resumo && DADOS.resumo.urlFontePorPolitico ? ' · valores por candidato: <a href="' + esc(DADOS.resumo.urlFontePorPolitico) + '" target="_blank" rel="noopener">Prestação de Contas Eleitorais 2026 / Dados Abertos TSE ↗</a>' : '') +
+        '. Dados públicos, reproduzidos sem alteração; para fins oficiais consulte sempre a fonte original.';
+    }
+
+    function renderPartidos() {
+      var el = document.getElementById('fx-lista-p');
+      if (!DADOS) return;
+      var q = (document.getElementById('fx-pq').value || '').toLowerCase().trim();
+      var lista = q ? DADOS.partidos.filter(function (p) {
+        return (p.sigla || '').toLowerCase().indexOf(q) >= 0 || (p.nome || '').toLowerCase().indexOf(q) >= 0;
+      }) : DADOS.partidos;
+      if (!lista.length) { el.innerHTML = '<p class="mb-muted">Nenhum partido com esse nome.</p>'; return; }
+      var mx = Math.max.apply(null, DADOS.partidos.map(function (p) { return p.valor || 0; }).concat([1]));
+      el.innerHTML = lista.map(function (p) {
+        var cotas = (p.cotas || []).filter(function (c) { return c.valor > 0; });
+        return '<div class="fx-row">' +
+          '<div class="fx-line"><span class="fx-nome">' + esc(p.sigla) + (p.nome ? ' <small>· ' + esc(p.nome) + '</small>' : '') + '</span>' +
+          '<span class="fx-val">' + brl(p.valor) + '<small>' + esc(p.percentual) + '% do fundo</small></span></div>' +
+          '<div class="fx-bar"><i style="width:' + Math.max(1.5, 100 * (p.valor || 0) / mx).toFixed(1) + '%"></i></div>' +
+          (cotas.length ? '<div class="fx-cotas">' + cotas.map(function (c) { return esc(c.destino) + ': ' + brl(c.valor); }).join(' &nbsp;·&nbsp; ') + '</div>' : '') +
+          '</div>';
+      }).join('');
+    }
+
+    function renderRankingTop() {
+      var el = document.getElementById('fx-ranking-lista');
+      if (!el || !DADOS) return;
+      if (!DADOS.candidatos.length) { el.innerHTML = '<p class="mb-muted">Sem repasses individuais publicados ainda.</p>'; return; }
+      var top = DADOS.candidatos.slice().sort(function (a, b) { return (b.valor || 0) - (a.valor || 0); }).slice(0, 20);
+      var mx = top[0].valor || 1;
+      el.innerHTML = '<div>' + top.map(function (c, i) {
+        var nome = titleCase(c.nome);
+        return '<div class="fx-row"><div class="fx-line"><span class="fx-nome">' + (i + 1) + 'º · ' + esc(nome) +
+          ' <small>· ' + esc(c.cargoNome || c.cargo || '') + ' ' + esc(c.partido || '') + '/' + esc(c.uf || '') + '</small></span>' +
+          '<span class="fx-val">' + brl(c.valor) + '</span></div>' +
+          '<div class="fx-bar"><i style="width:' + Math.max(1.5, 100 * (c.valor || 0) / mx).toFixed(1) + '%"></i></div>' +
+          '<div class="fx-cotas">' + esc(c.origem || '') + ' · <a href="parlamentares.html?busca=' + encodeURIComponent(String(c.nome || '').split(' ').slice(0, 2).join(' ')) + '">ver ficha no Radar →</a></div></div>';
+      }).join('') + '</div>';
+    }
+
+    function renderCandidatos() {
+      var el = document.getElementById('fx-lista-c');
+      if (!DADOS) return;
+      if (!DADOS.candidatos.length) {
+        document.getElementById('fx-dica-c').hidden = false;
+        el.innerHTML = '<div class="fx-empty"><span class="big">🗓️</span><strong>Ainda não existe valor individual por candidato.</strong><br>' +
+          esc(DADOS.aviso || 'Os repasses individuais aos candidatos são publicados nas prestações de contas após as eleições.') +
+          '<br><br>Enquanto isso, acompanhe <strong>quem recebeu pelo partido</strong> na aba “Por partido” — são as direções partidárias que distribuem o dinheiro às campanhas.</div>';
+        return;
+      }
+      document.getElementById('fx-busca-c').hidden = false;
+      document.getElementById('fx-dica-c').hidden = false;
+      var q = (document.getElementById('fx-q').value || '').toLowerCase().trim();
+      var lista = (q ? DADOS.candidatos.filter(function (c) {
+        return String(c.nome || '').toLowerCase().indexOf(q) >= 0 || String(c.partido || '').toLowerCase().indexOf(q) >= 0;
+      }) : DADOS.candidatos).slice(0, 100);
+      var mx = Math.max.apply(null, DADOS.candidatos.map(function (c) { return c.valor || 0; }).concat([1]));
+      el.innerHTML = '<div>' + lista.map(function (c) {
+        return '<div class="fx-row"><div class="fx-line"><span class="fx-nome">' + esc(titleCase(c.nome)) +
+          ' <small>· ' + esc(c.cargoNome || c.cargo || '') + ' ' + esc(c.partido || '') + '/' + esc(c.uf || '') + '</small></span>' +
+          '<span class="fx-val">' + brl(c.valor) + '</span></div>' +
+          '<div class="fx-bar"><i style="width:' + Math.max(1.5, 100 * (c.valor || 0) / mx).toFixed(1) + '%"></i></div>' +
+          '<div class="fx-cotas">' + esc(c.origem || '') + ' · ' + esc(c.ano || '') +
+          (c.sq ? ' · <a href="#" onclick="FX.abrirDetalhe(\'' + esc(String(c.sq)) + '\');return false;">repasses e comparativo ↓</a>' : '') +
+          '</div></div>';
+      }).join('') + '</div>';
+    }
+
+    /* ===== Painel de detalhe do candidato: comparativo declarado ×
+       distribuição do partido + repasses linha-a-linha da prestação
+       de contas. Ambos vindos dos endpoints públicos do TSE. ===== */
+    var DET_ATUAL = null;
+
+    function abrirDetalhe(sq) {
+      sq = String(sq);
+      DET_ATUAL = sq;
+      var painel = document.getElementById('fx-detalhe-c');
+      var det = document.getElementById('fx-det-repasses');
+      delete det.dataset.loaded;
+      document.getElementById('fx-det-repasses-body').innerHTML = '⏳ Carregando linhas da prestação de contas…';
+      document.getElementById('fx-det-comparativo').innerHTML = '';
+      api('/api/fundo-eleitoral/politico?sq=' + encodeURIComponent(sq)).then(function (d) {
+        var c = d.candidato || {};
+        document.getElementById('fx-det-titulo').textContent = '👤 ' + titleCase(c.nome || 'Candidato');
+        document.getElementById('fx-det-sub').textContent =
+          (c.cargoNome || '') + ' · ' + (c.partido || '') + '/' + (c.uf || '') +
+          ' — recebeu ' + brl(c.valor) + ' (' + (c.origem || '') + ')';
+        if (d.comparativo) {
+          var k = d.comparativo;
+          document.getElementById('fx-det-comparativo').innerHTML =
+            '<div style="margin-bottom:12px;">' +
+            '<div class="mb-muted-sm">Quanto do dinheiro do ' + esc((d.partido && d.partido.sigla) || 'partido') + ' já apareceu em nome de candidatos</div>' +
+            '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-top:2px;"><strong>' + brl(k.declaradoCandidatos) + '</strong><span class="mb-muted-sm">de ' + brl(k.totalPartido) + '</span></div>' +
+            '<div style="height:8px;border-radius:4px;background:rgba(0,0,0,.08);overflow:hidden;margin-top:6px;"><div style="height:100%;width:' + Math.min(100, k.percentualDeclarado) + '%;background:var(--mb-mint);"></div></div>' +
+            '<div class="mb-muted-sm" style="margin-top:6px;">' + k.percentualDeclarado + '% do valor já declarado nas prestações de contas até agora. O restante está retido nos diretórios ou ainda não foi publicado — prestação de contas é fase em andamento.</div>' +
+            '</div>';
+        }
+        painel.hidden = false;
+        painel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }).catch(function (e) {
+        document.getElementById('fx-det-comparativo').innerHTML = '⚠️ Não foi possível carregar o comparativo agora (' + esc(e.message) + ').';
+        painel.hidden = false;
+      });
+    }
+
+    function fmtV(v) { return 'R$ ' + Number(v || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 }); }
+
+    function carregarRepasses(detailsEl) {
+      var box = document.getElementById('fx-det-repasses-body');
+      if (!box || !DET_ATUAL) return;
+      detailsEl.dataset.loaded = '1';
+      box.innerHTML = '⏳ Carregando…';
+      api('/api/fundo-eleitoral/detalhe?sq=' + encodeURIComponent(DET_ATUAL)).then(function (d) {
+        if (!d.ok || !d.linhas || !d.linhas.length) {
+          box.innerHTML = 'Nenhuma linha de repasse publicada na fonte TSE para este candidato até agora.';
+          return;
+        }
+        var linhas = d.linhas.map(function (l) {
+          return '<tr><td style="padding:6px 8px;white-space:nowrap;border-bottom:1px solid rgba(0,0,0,.07);">' + esc(l.data) + '</td>' +
+            '<td style="padding:6px 8px;border-bottom:1px solid rgba(0,0,0,.07);">' + esc(l.doador) + ' <span class="mb-muted-sm">· ' + esc(l.esfera || '') + (l.tipo === 'Outro candidato' ? ' · repasse entre candidatos' : '') + '</span></td>' +
+            '<td style="padding:6px 8px;text-align:right;white-space:nowrap;border-bottom:1px solid rgba(0,0,0,.07);font-weight:600;">' + fmtV(l.valor) + '</td></tr>';
+        }).join('');
+        box.innerHTML =
+          '<table style="width:100%;border-collapse:collapse;font-size:13px;"><thead><tr>' +
+          '<th style="text-align:left;padding:6px 8px;">Data</th><th style="text-align:left;padding:6px 8px;">Quem repassou</th><th style="text-align:right;padding:6px 8px;">Valor</th></tr></thead>' +
+          '<tbody>' + linhas + '</tbody>' +
+          '<tfoot><tr><td colspan="2" style="padding:6px 8px;text-align:right;font-weight:700;">Total declarado</td>' +
+          '<td style="padding:6px 8px;text-align:right;font-weight:700;color:var(--mb-mint);">' + fmtV(d.soma) + '</td></tr></tfoot></table>' +
+          '<p class="mb-muted-sm" style="margin-top:8px;">Cada linha é um recebimento publicado na prestação de contas eleitoral deste candidato (fonte: ' +
+          '<a href="' + esc(d.urlFonte || '#') + '" target="_blank" rel="noopener">Dados Abertos TSE ↗</a>). Valores podem sofrer retificação pelo próprio candidato.</p>';
+      }).catch(function (e) {
+        delete detailsEl.dataset.loaded;
+        box.innerHTML = '⚠️ Não foi possível carregar as linhas agora (' + esc(e.message) + '). Feche e reabra para tentar de novo.';
+      });
+    }
+
+    /* abas */
+    var tabs = document.querySelectorAll('.mb-tab');
+    tabs.forEach(function (t) {
+      t.addEventListener('click', function () {
+        tabs.forEach(function (x) { x.classList.remove('active'); });
+        t.classList.add('active');
+        document.querySelectorAll('.mb-tab-panel').forEach(function (p) { p.classList.remove('active'); });
+        document.getElementById('tab-' + t.dataset.tab).classList.add('active');
+      });
+    });
+
+    carregar();
+    document.getElementById('fx-csv').href = BASE + '/api/fundo-eleitoral/export.csv';
+    return { renderPartidos: renderPartidos, renderCandidatos: renderCandidatos, abrirDetalhe: abrirDetalhe, carregarRepasses: carregarRepasses };
+  })();
+  </script>
+</body>
+</html>

@@ -1,14 +1,17 @@
 {
-  "name": "VotaBrasil - Cobre, Revogue, Vote",
+  "name": "VotaBrasil - Urna Digital",
   "short_name": "VotaBrasil",
-  "start_url": "./",
+  "description": "VotaBrasil: seu voto coloca, seu voto tira. Protótipo de viabilidade, sem valor jurídico.",
+  "start_url": "index.html",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#0B132B",
-  "theme_color": "#0B132B",
+  "orientation": "portrait",
+  "background_color": "#061a3a",
+  "theme_color": "#061a3a",
+  "categories": ["politics", "government"],
+  "lang": "pt-BR",
   "icons": [
-    {"src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any"},
-    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png"},
-    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png"}
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
   ]
 }

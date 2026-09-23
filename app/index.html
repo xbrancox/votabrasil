@@ -604,15 +604,15 @@ async function carregarCandidatos(){
   st.textContent='Buscando candidatos reais do TSE…';
   document.getElementById('cand-list').innerHTML='';
   try{
-    let u='/api/candidatos-tse?cargo='+num+'&porPagina=2000';
+    let u='/api/candidatos-tse?cargo='+num+'&porPagina=500';
     if(uf && uf!=='BR')u+='&uf='+encodeURIComponent(uf);
     if(busca)u+='&busca='+encodeURIComponent(busca);
     let j=await fetchJson(u);
-    sheetLista=(j.candidatos||[]).filter(c=>(c.sq||c.id||c.nomeUrna));
+    sheetLista=(j.candidatos||[]).filter(c=>c.sq);
     if(!sheetLista.length && uf && uf!=='BR'){
-      const u2='/api/candidatos-tse?cargo='+num+'&porPagina=2000'+(busca?'&busca='+encodeURIComponent(busca):'');
+      const u2='/api/candidatos-tse?cargo='+num+'&porPagina=500'+(busca?'&busca='+encodeURIComponent(busca):'');
       j=await fetchJson(u2);
-      sheetLista=(j.candidatos||[]).filter(c=>(c.sq||c.id||c.nomeUrna));
+      sheetLista=(j.candidatos||[]).filter(c=>c.sq);
     }
     if(!sheetLista.length) throw new Error('Nenhum candidato retornado pelo servidor');
     st.textContent=sheetLista.length+' candidatos oficiais'+(uf&&uf!=='BR'?' em '+uf:'')+'. Toque para escolher.';

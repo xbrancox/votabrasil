@@ -1,0 +1,27 @@
+{
+  "name": "votabrasil-backend",
+  "version": "1.0.0",
+  "description": "VotaBrasil — Backend de revogação do voto",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node server/index.js",
+    "test": "node tests/smoke.js"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "dependencies": {
+    "nodemailer": "^9.1.1"
+  },
+  "devDependencies": {
+    "playwright": "^1.62.1"
+  },
+  "keywords": [
+    "civic",
+    "transparency",
+    "brazil"
+  ],
+  "author": "VotaBrasil",
+  "license": "MIT"
+}

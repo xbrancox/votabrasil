@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Radar Político · MudaBrasil</title>
+<meta name="description" content="Radar Político: dados públicos reais de deputados federais e senadores — projetos apresentados, como votou, comissões, contatos e links oficiais (Câmara, Senado, TSE, Portal da Transparência, CNJ).">
+<link rel="canonical" href="https://xbrancox.github.io/MudaBrZclone280826/pages/parlamentares.html">
+<meta property="og:title" content="Radar Político · MudaBrasil">
+<meta property="og:description" content="Dados públicos reais de deputados e senadores: projetos, votações, comissões, contatos e links oficiais.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://xbrancox.github.io/MudaBrZclone280826/pages/parlamentares.html">
+<meta property="og:image" content="https://xbrancox.github.io/MudaBrZclone280826/og-image.png">
+<meta property="og:site_name" content="MudaBrasil">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://xbrancox.github.io/MudaBrZclone280826/og-image.png">
+<link rel="icon" type="image/svg+xml" href="../icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="../config.js"></script>
+<script src="../js/site-header.js"></script>
+<style>
+:root{--bg:#061a3a;--card:#0d2242;--card2:#123059;--line:rgba(127,176,245,.22);--ink:#fff;--muted:#94A3B8;--gold:#FFD700;--blue:#115FCB;--blueL:#4a90f0;--green:#2ECC71;--red:#E74C3C;--r:14px}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{background:radial-gradient(ellipse at top right,rgba(17,95,203,.14),transparent 50%),radial-gradient(ellipse at bottom left,rgba(255,215,0,.05),transparent 40%),var(--bg);color:var(--ink);font:15px/1.5 Manrope,sans-serif}
+h1,h2,h3,h4{font-family:Montserrat,sans-serif;font-weight:800;line-height:1.15}
+a{color:var(--gold);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.muted{color:var(--muted);font-size:12.5px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;border:1px solid var(--line);background:var(--card2);color:var(--ink);font:700 14px Manrope;padding:10px 18px;cursor:pointer;transition:.15s}
+.btn:hover{filter:brightness(1.12);text-decoration:none}
+.btn.gold{background:linear-gradient(135deg,#FFD700,#FFA500);border:none;color:#1a1400}
+.btn.green{background:var(--green);border:none;color:#fff}
+.btn.red{background:transparent;border-color:var(--red);color:var(--red)}
+.btn.sm{padding:7px 12px;font-size:12px}
+.badge{font:800 10px Manrope;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted);display:inline-flex;align-items:center;gap:4px}
+.badge.ok{color:var(--green);border-color:rgba(46,204,113,.4)}
+.badge.blue{color:var(--blueL);border-color:rgba(74,144,240,.4)}
+.badge.red{color:var(--red);border-color:rgba(231,76,60,.45)}
+input,select{background:var(--card2);border:1px solid var(--line);border-radius:10px;color:var(--ink);padding:10px 12px;font:500 14px Manrope;width:100%}
+select{cursor:pointer}
+/* HERO */
+.hero{text-align:center;padding:38px 20px 10px}
+.hero h1{font-size:clamp(26px,4.5vw,40px)}
+.hero p{color:var(--muted);max-width:720px;margin:12px auto 0}
+.databanner{display:inline-flex;gap:10px;align-items:center;background:rgba(46,204,113,.08);border:1px solid rgba(46,204,113,.45);border-radius:12px;padding:9px 16px;margin-top:16px;font-size:13px}
+/* FILTROS */
+.fbar{position:sticky;top:56px;z-index:80;background:rgba(6,26,58,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:12px 0;margin-top:18px}
+.fbar .row1{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1.2fr;gap:10px}
+.fbar .row2{display:flex;gap:10px;align-items:center;margin-top:10px;flex-wrap:wrap}
+.chipset{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font:800 11px Manrope;border:1px solid var(--line);border-radius:999px;padding:5px 12px;color:var(--muted);cursor:pointer;background:var(--card2)}
+.chip.on{border-color:var(--gold);color:var(--gold)}
+/* GRID DE CARDS */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0 10px}
+.ccard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;position:relative;transition:border-color .15s,transform .15s}
+.ccard:hover{border-color:var(--gold);transform:translateY(-2px)}
+.chead{display:flex;gap:12px;align-items:center}
+.av{width:52px;height:52px;border-radius:50%;object-fit:cover;object-position:top center;background:var(--card2)}
+.avXL{width:84px;height:84px;border-radius:50%;object-fit:cover;object-position:top center;background:var(--card2)}
+.avIni{display:grid;place-items:center;font:800 18px Montserrat;color:#1a1400}
+.cnome{font-size:16px;font-weight:800;font-family:Montserrat}
+.cmeta{color:var(--muted);font-size:12.5px;margin-top:2px}
+.pin{position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:10px;border:1px solid var(--line);background:var(--card2);color:var(--muted);display:grid;place-items:center;cursor:pointer;font-size:14px;z-index:5}
+.pin.on{background:var(--gold);color:#1a1400;border-color:var(--gold)}
+.cactions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.ctags{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.loadmore{text-align:center;margin:16px 0 40px}
+.empty{text-align:center;padding:50px 20px;color:var(--muted)}
+/* BARRA DE COMPARAR */
+.cmpbar{position:fixed;bottom:0;left:0;right:0;background:rgba(6,26,58,.96);border-top:1px solid var(--gold);padding:12px 16px;display:none;align-items:center;justify-content:space-between;gap:10px;z-index:160}
+.cmpbar.on{display:flex}
+/* MODAIS */
+.overlay{position:fixed;inset:0;background:rgba(4,8,20,.85);backdrop-filter:blur(5px);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:24px 16px;overflow-y:auto}
+.overlay.open{display:flex}
+.modal{background:var(--bg);border:1px solid var(--line);border-radius:20px;max-width:860px;width:100%;max-height:92vh;overflow:auto;padding:24px;position:relative}
+.modal.narrow{max-width:520px}
+.mx{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:var(--card2);color:var(--ink);font-size:16px;cursor:pointer;z-index:5}
+/* FICHA */
+.fhead{display:flex;gap:16px;align-items:center;flex-wrap:wrap;padding-right:40px}
+.fstats{display:grid;grid-template-columns:repeat(auto-fit,minmax(108px,1fr));gap:8px;margin:14px 0}
+.stat{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:8px}
+.stat small{color:var(--muted);font-size:9.5px;display:block;text-transform:uppercase;letter-spacing:.04em}
+.stat b{font-size:13.5px}
+.ftabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin:16px 0 12px;overflow-x:auto}
+.ftabs button{background:none;border:none;color:var(--muted);font:700 12.5px Manrope;padding:9px 13px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap}
+.ftabs button.on{color:var(--gold);border-color:var(--gold)}
+/* TABELA INDICADOR/VALOR/FONTE */
+.tabela{width:100%;border-collapse:collapse;font-size:13.5px}
+.tabela th{text-align:left;font-family:Montserrat;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:8px 10px;border-bottom:1px solid var(--line)}
+.tabela td{padding:9px 10px;border-bottom:1px solid rgba(127,176,245,.12);vertical-align:top}
+.tabela td.ind{color:var(--muted);width:32%}
+.tabela td.val{font-weight:700}
+.tabela tr:hover td{background:rgba(18,48,89,.45)}
+.fonte{font:800 9.5px Manrope;border:1px solid var(--line);border-radius:6px;padding:3px 8px;color:var(--blueL);white-space:nowrap;text-decoration:none}
+.fonte:hover{text-decoration:none;filter:brightness(1.2)}
+.fonte.tse{color:var(--gold)}
+.fonte.cnj{color:var(--red)}
+.fonte.pt{color:var(--green)}
+.badge.tse{color:var(--gold);border-color:rgba(255,215,0,.4)}
+.badge.red a,.badge.red{color:var(--red);border-color:rgba(231,76,60,.45)}
+a.badge{text-decoration:none;cursor:pointer}
+a.badge:hover{filter:brightness(1.25)}
+/* QUOTES / VOTAÇÕES */
+.quote{border-left:3px solid var(--red);background:rgba(231,76,60,.08);border-radius:6px;padding:6px 10px;margin-top:8px;font-size:12.5px}
+.quote.ok{border-color:var(--green);background:rgba(46,204,113,.08)}
+.quote.info{border-color:var(--blueL);background:rgba(74,144,240,.08)}
+/* Linha de PLs + contadores da plataforma nos cards do Radar (print do usuário) */
+.plrow{display:block;margin-top:10px;font:700 12.5px Manrope;color:#cfe0ff;text-decoration:none;cursor:pointer}
+.plrow:hover{text-decoration:underline;color:#fff}
+.crow{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.crow a.badge{cursor:pointer}
+.skel{background:linear-gradient(90deg,var(--card2) 25%,#1a3a6b 50%,var(--card2) 75%);background-size:200% 100%;animation:sk 1.2s infinite;border-radius:8px;color:transparent!important;user-select:none}
+@keyframes sk{0%{background-position:200% 0}100%{background-position:-200% 0}}
+#toast{position:fixed;top:16px;left:50%;transform:translateX(-50%);background:var(--card2);border:1px solid var(--line);color:var(--ink);padding:12px 18px;border-radius:12px;z-index:300;display:none;max-width:90%}
+.cmpgrid{display:grid;gap:12px}
+.comptable{width:100%;border-collapse:collapse;font-size:13px}
+.comptable td,.comptable th{padding:8px 10px;border-bottom:1px solid rgba(127,176,245,.12);text-align:center}
+.comptable td:first-child,.comptable th:first-child{text-align:left;color:var(--muted);width:170px}
+.comptable img{width:48px;height:48px;border-radius:50%;object-fit:cover;object-position:top center}
+.fontes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.fontes .fcard{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--card2);font-size:12px}
+@media(max-width:960px){
+ .grid{grid-template-columns:1fr}
+ .fbar .row1{grid-template-columns:1fr 1fr}
+ .fbar .row1 input:first-child{grid-column:1/-1}
+ .fontes{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<main>
+<section class="hero">
+  <h1>📡 Radar Político</h1>
+  <p><b style="color:var(--ink)">Dados públicos completos</b> de cada deputado federal e senador: projetos apresentados, como votou no Plenário, comissões, contatos e atuação. Compare lado a lado e cobre.</p>
+  <div class="databanner" id="dbanner"><span>⏳</span><span>Carregando lista de parlamentares…</span></div>
+</section>
+
+<div class="fbar"><div class="wrap">
+  <div class="row1">
+    <input id="q" placeholder="🔎 Buscar por nome, partido, estado…" oninput="renderRad()"/>
+    <select id="fUF" onchange="renderRad()"></select>
+    <select id="fPartido" onchange="renderRad()"></select>
+    <select id="fCargo" onchange="renderRad()">
+      <option value="">Todos os cargos</option>
+      <option>Deputado Federal</option>
+      <option>Senador Federal</option>
+    </select>
+    <select id="fOrdem" onchange="renderRad()">
+      <option value="nome">Nome (A-Z)</option>
+      <option value="uf">Estado (A-Z)</option>
+      <option value="partido">Partido (A-Z)</option>
+    </select>
+  </div>
+  <div class="row2">
+    <span class="muted" id="count"></span>
+    <span style="flex:1"></span>
+    <a class="fonte" href="https://divulgacandcontas.tse.jus.br/divulga/" target="_blank" rel="noopener">🏛️ TSE · DivulgaCand</a>
+    <a class="fonte pt" href="https://www.portaltransparencia.gov.br/" target="_blank" rel="noopener">💰 Portal da Transparência</a>
+  </div>
+</div></div>
+
+<div class="wrap">
+  <div class="grid" id="grid"></div>
+  <div class="loadmore"><button class="btn gold" id="more" onclick="mais()" hidden></button></div>
+</div>
+</main>
+
+<!-- BARRA DE COMPARAÇÃO -->
+<div class="cmpbar" id="cmpbar"><span class="muted" id="cmpcount">0 fixados</span>
+  <div style="display:flex;gap:8px"><button class="btn sm" onclick="limparPins()">Limpar</button><button class="btn gold sm" onclick="abrirCmp()">Comparar lado a lado</button></div>
+</div>
+
+<!-- MODAL FICHA -->
+<div class="overlay" id="mFicha"><div class="modal">
+  <button class="mx" onclick="fechar('mFicha')">✕</button>
+  <div id="fichaBody"></div>
+</div></div>
+
+<!-- MODAL PROCESSOS/CONDENACOES -->
+<div class="overlay" id="mProc"><div class="modal">
+  <button class="mx" onclick="fechar('mProc')">✕</button>
+  <div id="procBody"></div>
+</div></div>
+
+<!-- MODAL COMPARAR -->
+<div class="overlay" id="mCmp"><div class="modal">
+  <button class="mx" onclick="fechar('mCmp')">✕</button>
+  <h3 style="margin-bottom:12px">🆚 Comparação lado a lado</h3>
+  <div id="cmpBody"></div>
+  <button class="btn" style="width:100%;margin-top:14px" onclick="fechar('mCmp')">Fechar</button>
+</div></div>
+
+<!-- MODAL RECLAMAÇÃO/APOIO -->
+<div class="overlay" id="mForm"><div class="modal narrow">
+  <button class="mx" onclick="fechar('mForm')">✕</button>
+  <h3 id="fTitle" style="margin-bottom:12px">📝 Fazer reclamação</h3>
+  <label class="muted">Político</label><input id="fPol" readonly style="margin:6px 0 10px"/>
+  <label class="muted">Título</label><input id="fTitulo" maxlength="120" placeholder="Resumo breve (máx. 120)" style="margin:6px 0 10px"/>
+  <label class="muted">Descrição</label><textarea id="fDesc" style="width:100%;min-height:80px;background:var(--card2);border:1px solid var(--line);border-radius:10px;color:var(--ink);padding:10px;font:500 14px Manrope;resize:vertical" placeholder="Descreva com fonte/data ou links. Ou mande um elogio/apoio."></textarea>
+  <div style="display:flex;gap:8px;margin-top:14px;justify-content:flex-end"><button class="btn" onclick="fechar('mForm')">Cancelar</button><button class="btn gold" onclick="enviaForm()"><i class="fa-solid fa-paper-plane"></i> Enviar</button></div>
+</div></div>
+
+<!-- MODAL VERIFICAÇÃO -->
+<div class="overlay" id="mVerif"><div class="modal narrow">
+  <button class="mx" onclick="fechar('mVerif')">✕</button>
+  <h3 style="margin-bottom:10px">🔐 Verificação de identidade</h3>
+  <div id="verifAlvo" class="muted" style="margin-bottom:8px"></div>
+  <div id="verifPasso1">
+    <label class="muted">E-mail institucional (@camara.leg.br / @senado.leg.br)</label>
+    <input id="vEmail" placeholder="nome@camara.leg.br" style="margin:6px 0 10px"/>
+    <button class="btn gold" style="width:100%" onclick="solicitarCodigo()"><i class="fa-solid fa-envelope"></i> Enviar link de confirmação</button>
+  </div>
+  <div id="verifPasso2" style="display:none">
+    <label class="muted">Token do link recebido</label>
+    <input id="vCodigo" placeholder="cole o token aqui" style="margin:6px 0 10px;text-align:center"/>
+    <div id="verifDev" class="quote ok" style="display:none;margin:8px 0"></div>
+    <button class="btn green" style="width:100%" onclick="confirmarCodigo()"><i class="fa-solid fa-circle-check"></i> Confirmar e obter selo</button>
+  </div>
+  <button class="btn" style="width:100%;margin-top:12px" onclick="fechar('mVerif')">Fechar</button>
+</div></div>
+
+<!-- MODAL QUEM VOTOU -->
+<div class="overlay" id="mVotos"><div class="modal">
+  <button class="mx" onclick="fechar('mVotos')">✕</button>
+  <div id="votosBody" style="max-height:70vh;overflow-y:auto"></div>
+</div></div>
+
+<div id="toast"></div>
+
+<script>
+/* ============================================================
+   RADAR POLÍTICO — dados públicos oficiais do parlamentar
+   Fontes: Câmara (API dadosabertos via proxy) e Senado (dados
+   abertos) + índice TSE 2026 local (nº de urna).
+   Nenhum dado inventado: o que não existe aparece "—".
+   Links: âncora só com destino ESPECÍFICO por parlamentar;
+   onde não há (patrimônio TSE, processos CNJ), texto puro.
+   ============================================================ */
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const MB=window.MudaBrasil||{},API=MB.API_BASE||'';
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',3000)}
+const V=(x,fb)=>(x===0?0:(x||fb||'—'));
+function idade(iso){if(!iso)return null;const n=new Date(iso);if(isNaN(n))return null;const h=new Date();let a=h.getFullYear()-n.getFullYear();const m=h.getMonth()-n.getMonth();if(m<0||(m===0&&h.getDate()<n.getDate()))a--;return a}
+function fmtData(iso){if(!iso)return null;const d=new Date(String(iso).length===10?iso+'T00:00:00':iso);return isNaN(d)?null:d.toLocaleDateString('pt-BR')}
+function fmtTs(ts){if(!ts)return'';try{return new Date(ts).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})}catch(e){return''}}
+
+/* ---------- ESTADO ---------- */
+let POL=[],DET={},PINS=[],FTAB={},READY=false,VIS=60;
+let VOT_CACHE={ts:0,list:[]},VOTOS_BY_ID={};
+let REC_STATS={},FICHA_ID=null; /* contadores de reclamações/apoios (backend) e ficha aberta */
+
+/* ---------- CHIPS DE FONTE ----------
+   Regra dos links: toda âncora leva ao destino ESPECÍFICO do parlamentar
+   (ficha oficial, página de despesas, busca nomeada, PLs, redes, e-mail).
+   Onde não existe destino por parlamentar (patrimônio no TSE, processos no
+   CNJ) NÃO há link — a informação vira texto puro, sem âncora genérica. */
+const F_CAMARA=p=>`<a class="fonte" href="https://www.camara.leg.br/deputados/quem-sao/resultado?search=${encodeURIComponent(p.nome)}" target="_blank" rel="noopener" title="Localizar o deputado no portal oficial da Câmara">Câmara ↗</a>`;
+const F_SENADO=n=>`<a class="fonte" href="https://www25.senado.leg.br/web/senadores/senador/-/perfil/${n}" target="_blank" rel="noopener" title="Página oficial no Senado">Senado ↗</a>`;
+const F_PT=n=>`<a class="fonte pt" href="https://www.portaltransparencia.gov.br/busca?termo=${encodeURIComponent(n)}" target="_blank" rel="noopener" title="Busca pelo nome no Portal da Transparência (remuneração e gastos)">Transparência (busca) ↗</a>`;
+/* Despesas: deputado tem página própria na Câmara (cota parlamentar,
+   verba de gabinete, passagens). Senador não tem página por parlamentar
+   no portal → busca nomeada no Portal da Transparência, com o rótulo
+   dizendo exatamente que é busca. */
+const F_DESP=p=>p.fonte==='senado'
+  ?F_PT(p.nome)
+  :`<a class="fonte" href="https://www.camara.leg.br/cota-parlamentar/" target="_blank" rel="noopener" title="Cota parlamentar e despesas — consulte pelo nome do deputado no portal oficial da Câmara">Despesas na Câmara ↗</a>`;
+/* Link "ver PLs no Congresso": abre a área de PLs do Congresso buscando
+   direto na API da Câmara as proposições do autor (id do deputado +
+   nome de exibição). Na mesma aba se possível; com Ctrl/Cmd+click o
+   navegador decide. */
+function abrePlsCongresso(ev,nome,num){
+  if(ev&&(ev.metaKey||ev.ctrlKey||ev.shiftKey||ev.button>0))return true;
+  location.href='congresso.html?autor='+encodeURIComponent(nome)+(num?'&autorId='+encodeURIComponent(num):'');
+  return false;
+}
+/* id para o deep-link de autoria: deputado = número da Câmara; senador =
+   'senado-<código>' — a página do Congresso distingue os dois casos. */
+const autorIdQ=p=>p.num?(String(p.id).startsWith('camara-')?String(p.num):'senado-'+p.num):'';
+
+/* ---------- ÍNDICE TSE 2026 (nº do candidato na urna) ----------
+   data/tse-index.json = nome de urna + UF → candidaturas 2026
+   (número, cargo, situação) gerado do snapshot oficial do TSE.
+   Quem não está concorrendo em 2026 não tem registro → "—". */
+let TSE_IDX=null;
+const normNome=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/\s+/g,' ').trim();
+const CARGO_TSE={1:'Presidente',2:'Vice-Presidente',3:'Governador',4:'Vice-Governador',5:'Senador',6:'Deputado Federal',7:'Dep. Estadual',8:'Dep. Distrital',9:'Prefeito',10:'Vice-Prefeito',11:'Vereador'};
+function candsDe(p){return TSE_IDX?(TSE_IDX[normNome(p.nome)+'|'+String(p.uf||'').toUpperCase()]||[]):null}
+function candChips(p){const l=candsDe(p);
+  if(l==null)return null; /* índice ainda carregando */
+  if(!l.length)return '';
+  return l.map(e=>{
+    const cor=/DEFERIDO/.test(e.s)?'var(--green)':/INDEFERIDO|CANCEL|CASSADO/.test(e.s)?'var(--red)':'var(--gold)';
+    return `<span title="${esc(e.s)} — TSE 2026" style="color:${cor}">Nº ${esc(e.n)}</span> <span class="muted">(${esc(CARGO_TSE[e.c]||'candidato')})</span>`}).join(' · ')}
+async function carregaTseIdx(){
+  try{const r=await fetch('../data/tse-index.json');const j=await r.json();
+    if(j&&j.idx){TSE_IDX=j.idx;
+      if(READY)renderRad();
+      if(FICHA_ID&&document.getElementById('mFicha').classList.contains('open'))renderFicha(FICHA_ID);
+    }}
+  catch(e){/* índice opcional: sem ele, ficha mostra "—" no nº do candidato */}}
+
+/* ---------- TSE 2026: página oficial da candidatura (bens + processos) ----------
+   O DivulgaCandContas TEM página por candidato:
+   #/candidato/{REGIAO}/{UF}/{ELEICAO}/{SQ}/2026/{UF} — com as seções "Bens do
+   Candidato" e "Processos". O SQ (que o tse-index.json não tem) vem de
+   /api/candidatos-tse (snapshot oficial dos CSVs do TSE). Quem não concorre
+   em 2026 não tem SQ → popup honesto ("não consta"), nunca link morto. */
+const REGIAO_UF={AC:'NORTE',AP:'NORTE',AM:'NORTE',PA:'NORTE',RO:'NORTE',RR:'NORTE',TO:'NORTE',AL:'NORDESTE',BA:'NORDESTE',CE:'NORDESTE',MA:'NORDESTE',PB:'NORDESTE',PE:'NORDESTE',PI:'NORDESTE',RN:'NORDESTE',SE:'NORDESTE',DF:'CENTRO OESTE',GO:'CENTRO OESTE',MS:'CENTRO OESTE',MT:'CENTRO OESTE',ES:'SUDESTE',MG:'SUDESTE',RJ:'SUDESTE',SP:'SUDESTE',PR:'SUL',RS:'SUL',SC:'SUL'};
+const TSE_ELEICAO='20322002026';
+const SIT_RUIM=/INDEFERIDO|INAPTO|CASSAD|CANCELAD/;
+const tseCandUrl=c=>{const uf=String(c.uf||'').toUpperCase();return 'https://divulgacandcontas.tse.jus.br/divulga/#/candidato/'+encodeURIComponent(REGIAO_UF[uf]||'BR')+'/'+uf+'/'+TSE_ELEICAO+'/'+c.sq+'/2026/'+uf};
+const TSE_CAND={};const TSE_CAND_RES={};
+function tseBusca(nome,uf){const k=normNome(nome)+'|'+String(uf||'').toUpperCase();
+  if(TSE_CAND[k])return TSE_CAND[k];
+  TSE_CAND[k]=(async()=>{try{
+    const r=await fetch(camaraBase()+'/api/candidatos-tse?busca='+encodeURIComponent(nome)+(uf?'&uf='+encodeURIComponent(uf):'')+'&porPagina=20');
+    const j=await r.json();const alvo=normNome(nome);
+    const vistos={};const lista=(j.candidatos||[]).filter(c=>{
+      const ok=(normNome(c.nomeUrna)===alvo||normNome(c.nomeCivil)===alvo)&&c.sq&&!vistos[c.sq];
+      if(ok)vistos[c.sq]=1;return ok});
+    return TSE_CAND_RES[k]={estado:lista.length?'ok':'vazio',lista};
+  }catch(e){return TSE_CAND_RES[k]={estado:'erro',lista:[]}}})();
+  return TSE_CAND[k]}
+/* ---------- POPUP ⚖️ Processos e condenações ---------- */
+const CE_CAMARA='https://www2.camara.leg.br/a-camara/estruturaadm/eticaedecoro/processos.html';
+const CE_SENADO='https://www25.senado.leg.br/web/conselhos';
+let PROCI=null;
+function abreProc(html){document.getElementById('procBody').innerHTML=html;document.getElementById('mProc').classList.add('open')}
+function procHTML(nome,cands,erro,cargo){
+  const linhas=(cands||[]).map(c=>{const ruim=SIT_RUIM.test(String(c.situacao||'').toUpperCase());
+    return `<div class="quote ${ruim?'':'info'}" style="margin-top:6px">🗳️ <b>${CARGO_TSE[c.cargo]||'Candidatura'}</b> ${esc(c.uf)} · nº ${esc(c.numero||'—')} — situação no TSE: <b style="color:${ruim?'var(--red)':'var(--green)'}">${esc(c.situacao||'—')}</b>${ruim?'<br><small class="muted">Situação que pode refletir decisão judicial (Lei Ficha Limpa) — confirme na página oficial.</small>':''}<br><a href="${tseCandUrl(c)}" target="_blank" rel="noopener" style="color:var(--blueL)">💰⚖️ Bens e processos da candidatura — página oficial no TSE ↗</a></div>`}).join('');
+  let corpo;
+  if(cands===null)corpo='<div class="quote info" style="margin-top:6px">⏳ Consultando o TSE…</div>';
+  else if(erro)corpo='<div class="quote" style="margin-top:6px">⚠️ O TSE não respondeu agora (serviço instável). <a href="javascript:void(0)" onclick="reabrirProc()" style="color:var(--blueL)">tentar de novo ↻</a></div>';
+  else if(!cands.length)corpo='<div class="quote" style="margin-top:6px">🗳️ <b>Não consta processo eleitoral</b> — nenhuma candidatura deste nome em 2026 no TSE, nesta UF. Sem candidatura no ano, não há declaração de bens nem processo publicado no DivulgaCandContas.</div>';
+  else corpo=linhas;
+  const ce=/senador/i.test(String(cargo||''))
+    ?`<div class="quote info" style="margin-top:6px">🏛️ Processo ético (mandato): Conselho de Ética e Decoro Parlamentar do Senado — <a href="${CE_SENADO}" target="_blank" rel="noopener" style="color:var(--blueL)">ver Conselhos no site do Senado ↗</a></div>`
+    :`<div class="quote info" style="margin-top:6px">🏛️ Processo ético (mandato): Representações ao Conselho de Ética da Câmara — <a href="${CE_CAMARA}" target="_blank" rel="noopener" style="color:var(--blueL)">ver no site da Câmara ↗</a></div>`;
+  return `<h3 style="margin-bottom:6px">⚖️ Processos e condenações — ${esc(nome)}</h3>
+  <p class="muted" style="margin:6px 0">O que consta <b>nesta plataforma</b>: nada — aqui não há registro de processo contra este político. E não existe no Brasil consulta pública unificada de processos por pessoa: cada tribunal (Justiça Federal/Estadual, STF, STJ) exige consulta individual com CPF e captcha. O que dá para verificar oficialmente, sem inventar nada:</p>
+  ${corpo}${ce}`}
+function verProcId(id){const p=POL.find(x=>x.id===id);if(!p)return;PROCI=id;
+  abreProc(procHTML(p.nome,null,false,p.cargo));
+  tseBusca(p.nome,p.uf).then(r=>{if(PROCI===id&&document.getElementById('mProc').classList.contains('open'))abreProc(procHTML(p.nome,r.lista,r.estado==='erro',p.cargo))})}
+function reabrirProc(){if(PROCI==null)return;const p=POL.find(x=>x.id===PROCI);if(!p)return;
+  /* limpa o resultado com erro pra permitir retry real */
+  const k=normNome(p.nome)+'|'+String(p.uf||'').toUpperCase();
+  if(TSE_CAND_RES[k]&&TSE_CAND_RES[k].estado==='erro'){delete TSE_CAND[k];delete TSE_CAND_RES[k]}
+  verProcId(PROCI)}
+/* Linhas ⚖️ da ficha: Patrimônio → página oficial da candidatura no TSE
+   (seção Bens) quando há candidatura 2026; Processos → popup com o que
+   existe oficialmente (candidatura + conselho de ética). */
+function patTSE(p,id){
+  const st=(l,v)=>`<div class="stat"><small>${l}</small><b style="font-size:13px">${v}</b></div>`;
+  const r=TSE_CAND_RES[normNome(p.nome)+'|'+String(p.uf||'').toUpperCase()];
+  let pat;
+  if(!r)pat='<span class="muted">⏳ consultando candidatura no TSE…</span>';
+  else if(r.estado==='erro')pat=`<a href="javascript:void(0)" onclick="return verProcId('${esc(id)}')" style="color:var(--blueL)">TSE indisponível — verificar ↗</a>`;
+  else if(r.lista.length===1)pat=`<a href="${tseCandUrl(r.lista[0])}" target="_blank" rel="noopener" style="color:var(--blueL)">bens declarados 2026 — página oficial no TSE ↗</a>`;
+  else if(r.lista.length>1)pat=`<a href="javascript:void(0)" onclick="return verProcId('${esc(id)}')" style="color:var(--blueL)">${r.lista.length} candidaturas em 2026 — escolher no TSE ↗</a>`;
+  else pat=`<a href="javascript:void(0)" onclick="return verProcId('${esc(id)}')" style="color:var(--blueL)">sem candidatura em 2026 — verificar por quê ↗</a>`;
+  return st('Patrimônio declarado',pat)+st('Processos e condenações',`<a href="javascript:void(0)" onclick="return verProcId('${esc(id)}')" style="color:var(--blueL)">verificar processos ↗</a>`)
+}
+/* Card de fontes "Nº de urna": com SQ resolvido vira link da página
+   oficial da candidatura; sem candidatura, botão que abre o popup ⚖️. */
+function fcardTse(p){
+  const cands=candsDe(p);
+  const r=TSE_CAND_RES[normNome(p.nome)+'|'+String(p.uf||'').toUpperCase()];
+  if(cands==null)return 'carregando índice TSE…';
+  if(!cands.length)return r&&r.estado!=='erro'
+    ?'sem candidatura em 2026 — <a href="javascript:void(0)" onclick="return verProcId(\''+esc(p.id)+'\')" style="color:var(--blueL)">verificar ↗</a>'
+    :'sem candidatura em 2026';
+  const m=r&&r.estado==='ok'?(r.lista||[]).find(c=>String(c.numero)===String(cands[0].n)):null;
+  return 'Candidatura: '+esc(cands.map(e=>(CARGO_TSE[e.c]||'candidato')+' nº '+e.n).join(' · '))
+    +(m?' — <a href="'+tseCandUrl(m)+'" target="_blank" rel="noopener" style="color:var(--blueL)">abrir página oficial no TSE ↗</a>'
+       :(r?' — <a href="javascript:void(0)" onclick="return verProcId(\''+esc(p.id)+'\')" style="color:var(--blueL)">verificar ↗</a>':''));
+}
+
+/* ---------- CARREGA LISTA ---------- */
+function normaliza(d){const num=(String(d.id||'').match(/\d+/)||[0])[0];
+  return{id:d.id,nome:d.name||'',partido:d.party||'',uf:d.state||'',cargo:d.position||'Deputado Federal',
+    foto:d.photo||'',email:d.email||'',leg:d.legislatura||null,num:num,
+    fonte:d.source||'camara',propsSnap:(d.billsAuthored!=null?d.billsAuthored:null),selo:false}}
+
+async function carregaPol(){
+  // 1) backend com dados reais
+  try{const r=await fetch(API+'/api/candidatos');const j=await r.json();
+    const arr=j.candidatos||j.dados||[];
+    if(arr.length){POL=arr.map(normaliza);backendOK=true}}catch(e){}
+  // 2) snapshot estático (GitHub Pages)
+  if(!POL.length){try{const r=await fetch('../data/politicos.json');const j=await r.json();
+    if(j.candidatos&&j.candidatos.length){POL=j.candidatos.map(normaliza)}}catch(e){}}
+  // 3) direto nas APIs públicas (offline do backend)
+  if(!POL.length){
+    try{const r=await fetch('https://dadosabertos.camara.leg.br/api/v2/deputados?itens=513&ordem=ASC&ordenarPor=nome');
+      const j=await r.json();(j.dados||[]).forEach(d=>POL.push(normaliza({id:'camara-'+d.id,source:'camara',name:d.nome,party:d.siglaPartido,state:d.siglaUf,position:'Deputado Federal',photo:d.urlFoto})))}catch(e){}
+    try{const r=await fetch('https://legis.senado.leg.br/dadosabertos/senador/lista/legislatura/57?formato=json');
+      const j=await r.json();const L=(j.lista&&j.lista.senador)||[];
+      L.forEach(s=>{const p=s.IdentificacaoParlamentar||{};POL.push(normaliza({id:'senado-'+(p.CodigoParlamentar||''),source:'senado',name:p.NomeParlamentar,party:p.SiglaPartido,state:p.Uf,position:'Senador',photo:p.UrlFotoParlamentar}))})}catch(e){}
+  }
+  READY=true;
+  const b=$('#dbanner');
+  b.innerHTML='<span>📡</span><span><b>'+(POL.length||'—')+' parlamentares reais</b> — Câmara dos Deputados e Senado Federal (57ª legislatura). Clique em <b>Dados Públicos</b> para ver todos os dados.</span>';
+  popula();renderRad();
+  carregaStatsGlobais();
+}
+function popula(){
+  const ufs=[...new Set(POL.map(p=>p.uf))].filter(Boolean).sort();
+  const pts=[...new Set(POL.map(p=>p.partido))].filter(Boolean).sort();
+  $('#fUF').innerHTML='<option value="">Todos os estados</option>'+ufs.map(u=>`<option>${esc(u)}</option>`).join('');
+  $('#fPartido').innerHTML='<option value="">Todos os partidos</option>'+pts.map(p=>`<option>${esc(p)}</option>`).join('');
+}
+
+/* ---------- CONTADORES DA PLATAFORMA (reclamações/respostas/apoios) ---------- */
+async function carregaStats(id){
+  const d=DET[id];if(!d||d.statsFim)return;
+  d.statsFim=false;
+  try{const r=await fetch(API+'/api/estatisticas/politico/'+encodeURIComponent(id));
+    const j=await r.json();
+    if(j&&j.ok&&j.stats)d.stats=j.stats;}
+  catch(e){/* backend ausente → ficha mostra "—" honesto */}
+  d.statsFim=true;
+  if(fichaAtiva(id)&&FTAB[id])renderFicha(id);
+}
+
+/* ---------- CONTADORES EM LOTE (cards do Radar Político) ----------
+   1 request para todos os políticos: Reclamações/Respostas/Apoios +
+   prévia das 2 reclamações mais recentes de cada um (print do usuário). */
+let STATS_ALL=null;
+async function carregaStatsGlobais(){
+  try{const r=await fetch(API+'/api/estatisticas/politicos');const j=await r.json();
+    if(j&&j.ok&&j.stats){STATS_ALL=j.stats;if(READY)renderRad()}}
+  catch(e){/* backend ausente → cards ficam sem contadores (estado honesto) */}
+}
+
+/* ---------- LISTA / FILTROS ---------- */
+function filtrados(){
+  const q=($('#q').value||'').toLowerCase().trim();
+  const uf=$('#fUF').value,pt=$('#fPartido').value,cg=$('#fCargo').value,ord=$('#fOrdem').value;
+  let l=POL.filter(p=>{
+    if(q){const hay=(p.nome+' '+p.partido+' '+p.uf+' '+p.cargo+' '+p.num).toLowerCase();if(!hay.includes(q))return false}
+    if(uf&&p.uf!==uf)return false;if(pt&&p.partido!==pt)return false;if(cg&&p.cargo!==cg)return false;return true});
+  const cmp={nome:(a,b)=>a.nome.localeCompare(b.nome,'pt-BR'),uf:(a,b)=>(a.uf||'').localeCompare(b.uf||'')||a.nome.localeCompare(b.nome,'pt-BR'),partido:(a,b)=>(a.partido||'').localeCompare(b.partido||'')||a.nome.localeCompare(b.nome,'pt-BR')};
+  return l.sort(cmp[ord]||cmp.nome);
+}
+function av(p,cls){return p.foto?`<img class="${cls}" src="${esc(p.foto)}" alt="" loading="lazy" onerror="this.outerHTML='<div class=&quot;${cls} avIni&quot; style=&quot;background:var(--card2);color:#9fb0c8&quot;>${esc((p.nome||'?').slice(0,1))}</div>'">`:`<div class="${cls} avIni" style="background:var(--card2);color:#9fb0c8">${esc((p.nome||'?').slice(0,1))}</div>`}
+function renderRad(){
+  if(!READY)return;
+  const l=filtrados();const vis=l.slice(0,VIS);
+  $('#count').textContent=l.length+' parlamentar(es)'+(l.length>vis.length?` — exibindo ${vis.length}`:'');
+  $('#grid').innerHTML=vis.length?vis.map(p=>{
+    const det=DET[p.id]||{};
+    const tags=[];
+    const cd=candsDe(p);
+    if(cd&&cd.length)tags.push(`<span class="badge tse" title="Candidatura(s) 2026 — TSE: ${esc(cd.map(e=>CARGO_TSE[e.c]+' nº '+e.n+' · '+e.s).join('; '))}">🗳️ ${cd.map(e=>'Nº '+esc(e.n)).join(' · ')}</span>`);
+    if(det.votos&&det.votos.length)tags.push(`<span class="badge blue">🗳️ ${det.votos.length} votações</span>`);
+    if(p.email)tags.push('<span class="badge ok">✉️ Contato oficial</span>');
+    if(p.selo)tags.push('<span class="badge ok">✅ Verificado</span>');
+    // ---- PLs clicáveis + contadores da plataforma (print do usuário) ----
+    const isCam=String(p.id).startsWith('camara-');
+    const nProj=det.props?det.props.length:(p.propsSnap!=null?p.propsSnap:null);
+    let extra=`<a class="plrow" href="congresso.html?autor=${encodeURIComponent(p.nome)}${autorIdQ(p)?'&autorId='+autorIdQ(p):''}" onclick="return abrePlsCongresso(event,'${esc(p.nome)}','${autorIdQ(p)}')" title="Clique pra ver os PLs deste parlamentar e como os partidos votaram — a lista completa fica na página do Congresso">📜 Projetos de Leis (PLs) apresentados${nProj!=null?' ('+nProj+')':''} — ver PLs no Congresso →</a>`;
+    /* Layout uniforme: TODOS os cards trazem a fileira de contadores da
+       plataforma — 0 quando não há atividade, "…" enquanto o lote global
+       não chegou. As citações só aparecem para quem tem registros. */
+    const st=STATS_ALL?(STATS_ALL[p.id]||{complaints:0,responses:0,supports:0,recs:[],sups:[]}):null;
+    const ns=v=>st&&v!=null?v:'…';
+    extra+=`<div class="crow"><a class="badge red" href="javascript:void(0)" onclick="abreRecSec('${esc(p.id)}','rec')" title="Ver todas as reclamações (com as respostas, se houver)">📣 Reclamações (${ns(st&&st.complaints)})</a><a class="badge ok" href="javascript:void(0)" onclick="abreRecSec('${esc(p.id)}','resp')" title="Ver as respostas oficiais do parlamentar">💬 Respostas (${ns(st&&st.responses)})</a><a class="badge ok" href="javascript:void(0)" onclick="abreRecSec('${esc(p.id)}','apo')" title="Ver todos os apoios">👍 Apoios (${ns(st&&st.supports)})</a></div>`;
+    ((st&&st.recs)||[]).forEach(c=>{extra+=`<div class="quote" title="Reclamação recente da plataforma">📣 ${esc(c.content)}<br><small class="muted">${fmtTs(c.createdAt)}${c.responded?' · respondida ✓':''}</small></div>`});
+    if(st&&st.sups&&st.sups.length)extra+=`<div class="quote ok" title="Apoio recente da plataforma">👍 ${esc(st.sups[0].content)}<br><small class="muted">${fmtTs(st.sups[0].createdAt)}</small></div>`;
+    return `<article class="ccard">
+      <button class="pin ${PINS.includes(p.id)?'on':''}" title="Fixar para comparar" onclick="togglePin('${esc(p.id)}')">📌</button>
+      <div class="chead">${av(p,'av')}<div><div class="cnome">${esc(p.nome)}</div><div class="cmeta">${esc(p.partido)} · ${esc(p.uf)} · ${esc(p.cargo)}</div></div></div>
+      <div class="ctags"><span class="badge">🏛️ ${esc(p.fonte==='senado'?'Senado Federal':'Câmara dos Deputados')}</span>${tags.join('')}</div>
+      ${extra}
+      <div class="cactions"><button class="btn gold sm" onclick="abrirFicha('${esc(p.id)}')">📄 Dados Públicos</button>
+      <button class="btn sm" onclick="abrirForm('${esc(p.id)}','rec')">🔴 Reclamar</button>
+      <button class="btn green sm" onclick="abrirForm('${esc(p.id)}','apo')">👍 Apoiar</button></div>
+    </article>`}).join('')
+    :`<div class="empty" style="grid-column:1/-1"><h3>Ninguém encontrado</h3><p>Ajuste a busca ou os filtros.</p></div>`;
+  const m=$('#more');
+  if(l.length>vis.length){m.hidden=false;m.textContent='⬇️ Carregar mais ('+(l.length-vis.length)+' restantes)'}else m.hidden=true;
+}
+function mais(){VIS+=60;renderRad()}
+
+/* ---------- DADOS PÚBLICOS (ficha do parlamentar) ---------- */
+function abrirFicha(id){
+  const p=POL.find(x=>x.id===id);if(!p)return;
+  if(!DET[id])DET[id]={props:[],votos:[],orgaos:null,frentes:null,ocup:null,hist:null,det:{},votosFim:false};
+  // contadores em lote já carregados? semeia a ficha na hora (o detalhado vem da API individual)
+  if(!DET[id].stats&&STATS_ALL&&STATS_ALL[id])DET[id].stats={complaints:STATS_ALL[id].complaints,responses:STATS_ALL[id].responses,supports:STATS_ALL[id].supports};
+  FTAB[id]=FTAB[id]||'ficha';
+  FICHA_ID=id;
+  document.getElementById('mFicha').classList.add('open');
+  renderFicha(id);
+  preencheDetalhe(id);
+  carregaStats(id);
+  carregaRec(id);
+  /* SQ da candidatura no TSE (bens/processos): consulta e re-renderiza a
+     ficha quando chegar, se ela seguir aberta neste político. */
+  if(!TSE_CAND_RES[normNome(p.nome)+'|'+String(p.uf||'').toUpperCase()])
+    tseBusca(p.nome,p.uf).then(()=>{if(fichaAtiva(id))renderFicha(id)});
+}
+/* Clique nos contadores do card → abre a ficha na aba 📣 já rolando
+   até a seção pedida (rec=reclamações, resp=respostas, apo=apoios).
+   O scroll (instantâneo) se repete a cada re-render do enriquecimento
+   (props/votos chegam depois e trocam o innerHTML, resetando a rolagem);
+   encerra ao clicar numa âncora, fechar a ficha ou passar a janela. */
+let RECSEC=null;
+function abreRecSec(id,sec){abrirFicha(id);FTAB[id]='rec';RECSEC=sec;renderFicha(id);
+  const tok=sec;setTimeout(()=>{if(RECSEC===tok)RECSEC=null},4000)}
+/* Aba 📋 Ficha — estrutura completa dos "Dados públicos" (igual à da home):
+   Pessoal / Mandato / Atuação institucional (comissões, frentes, ocupações,
+   histórico listados) / Presença digital / Atuação em números /
+   Transparência externa / Últimas votações. Política de links: âncora só
+   quando o destino é ESPECÍFICO do parlamentar; sem destino específico,
+   texto puro — nunca link genérico. */
+function fichaHTML(id){
+  const p=POL.find(x=>x.id===id),d=DET[id]||{},det=d.det||{};
+  const pend=done=>done?'—':'<span class="skel">carregando</span>';
+  const val=v=>(v!=null&&v!=='')?esc(v):pend(d.detDone);
+  const row=(l,v)=>`<div class="stat"><small>${l}</small><b style="font-size:13px">${(v==null||v==='')?pend(d.detDone):v}</b></div>`;
+  const grp=(t,inner)=>inner?`<h4 style="color:var(--gold);font-size:12px;margin:14px 0 6px">${t}</h4><div class="fstats" style="grid-template-columns:1fr 1fr">${inner}</div>`:'';
+  const cands=candsDe(p);
+  /* link oficial da candidatura quando o SQ já veio de /api/candidatos-tse */
+  const tseRes=TSE_CAND_RES[normNome(p.nome)+'|'+String(p.uf||'').toUpperCase()];
+  const tseLink=n=>{const m=tseRes&&tseRes.estado==='ok'?(tseRes.lista||[]).find(c=>String(c.numero)===String(n)):null;
+    return m?` — <a href="${tseCandUrl(m)}" target="_blank" rel="noopener" style="color:var(--blueL)">página oficial no TSE ↗</a>`:''};
+  const candV=cands==null?'<span class="skel">carregando</span>':(cands.length?candChips(p)+tseLink(cands[0].n):'—');
+  const plsHref='congresso.html?autor='+encodeURIComponent(p.nome)+(autorIdQ(p)?'&autorId='+autorIdQ(p):'');
+  const nProj=d.props?d.props.length:(p.propsSnap!=null?p.propsSnap:null);
+  const plsV=`<a href="${plsHref}" onclick="return abrePlsCongresso(event,'${esc(p.nome)}','${autorIdQ(p)}')" title="Ver a lista de PLs deste parlamentar na página do Congresso">${nProj!=null?nProj+' nesta legislatura — ':'ver '}PLs no Congresso →</a>`;
+  let votV='<span class="skel">carregando</span>';
+  if(d.votos)votV=d.votos.length?`${d.votos.length} nominais — detalhes na aba 🗳️`:(d.votosFim?'0 nominais nas recentes — aba 🗳️':'<span class="skel">carregando</span>');
+  const redes=det.redes&&det.redes.length
+    ?det.redes.map(r=>`<a href="${esc(r)}" target="_blank" rel="noopener">${esc(r.replace(/^https?:\/\/(www\.)?/,'').slice(0,32))}</a>`).join(' · ')
+    :(d.detDone?'não informadas pela fonte oficial':'<span class="skel">carregando</span>');
+  /* listas compactas — a lista integral fica na aba 🏛️ Atividade */
+  const maisAba=(n,aba)=>`<p class="muted" style="margin:4px 0 0">+ ${n} — lista completa na aba ${aba}</p>`;
+  const org=(d.orgaos||[]).slice(0,6).map(o=>`<div class="quote info" style="margin-top:4px"><b>${esc(o.n)}</b>${o.c?' — <b style="color:var(--gold)">'+esc(o.c)+'</b>':''}${o.t?' <small class="muted">desde '+esc(o.t)+'</small>':''}</div>`).join('');
+  const fre=(d.frentes||[]).slice(0,4).map(f=>`<div class="quote ok" style="margin-top:4px">🤝 ${esc(f)}</div>`).join('');
+  const oc=(d.ocup||[]).slice(0,3).map(o=>`<div class="quote info" style="margin-top:4px">💼 ${esc(o)}</div>`).join('');
+  const hi=(d.hist||[]).slice(0,3).map(x=>`<div class="quote info" style="margin-top:4px">${x.d?'<small class="muted">'+esc(x.d)+'</small> — ':''}${esc(x.t)}</div>`).join('');
+  const atua=d.semAtiv
+    ?`<h4 style="color:var(--gold);font-size:12px;margin:14px 0 6px">🧩 Atuação institucional</h4><p class="muted" style="margin:2px 0">A API aberta do Senado não publica listas de comissões, frentes ou ocupações por senador — consulte a página oficial do senador.</p>`
+    :((d.orgaos==null)?'':
+    `<h4 style="color:var(--gold);font-size:12px;margin:14px 0 6px">🧩 Atuação institucional</h4>`
+    +(d.orgaos.length?'<b class="muted" style="font-size:11px">🏛️ Órgãos e comissões</b>'+org+((d.orgaos.length>6)?maisAba(d.orgaos.length-6,'🏛️ Atividade'):''):'<p class="muted" style="margin:2px 0">Nenhum registro de órgão/comissão.</p>')
+    +((d.frentes&&d.frentes.length)?'<b class="muted" style="font-size:11px">🤝 Frentes parlamentares</b>'+fre+((d.frentes.length>4)?maisAba(d.frentes.length-4,'🏛️ Atividade'):''):'')
+    +((d.ocup&&d.ocup.length)?'<b class="muted" style="font-size:11px">💼 Ocupações declaradas</b>'+oc+((d.ocup.length>3)?maisAba(d.ocup.length-3,'🏛️ Atividade'):''):'')
+    +((d.hist&&d.hist.length)?'<b class="muted" style="font-size:11px">🕐 Histórico recente do mandato</b>'+hi+((d.hist.length>3)?maisAba(d.hist.length-3,'🏛️ Atividade'):''):''));
+  return grp('👤 Pessoal',row('Nome civil',val(det.nomeCivil))
+      +row('Nascimento',det.nasc?esc(det.nasc)+(det.idade?' ('+det.idade+' anos)':''):pend(d.detDone))
+      +row('Naturalidade',val(det.munic))+row('Escolaridade',val(det.escolaridade)))
+    +grp('🏛️ Mandato',row('Partido/UF',esc(p.partido)+' · '+esc(p.uf))
+      +row('Cargo',esc(p.cargo))
+      +row('Nº eleitoral (TSE 2026)',candV)
+      +row('Legislatura',p.leg?esc(p.leg)+'ª':pend(true))
+      +row('Situação',det.situacao?esc(det.situacao+(det.condicao?' · '+det.condicao:'')):pend(d.detDone))
+      +row('Gabinete',val(det.gabinete))
+      +row('Contato do gabinete',val(det.contato))
+      +row('E-mail institucional',p.email?`<a href="mailto:${esc(p.email)}">${esc(p.email)}</a>`:pend(true)))
+    +atua
+    +grp('🌐 Presença digital',row('Redes sociais',redes))
+    +grp('📊 Atuação em números',row('Projetos apresentados',plsV)
+      +row('Votações nominais',votV)
+      +row('Comissões/Órgãos',d.semAtiv?'—':(d.orgaos?String(d.orgaos.length):'…'))
+      +row('Frentes',d.semAtiv?'—':(d.frentes?String(d.frentes.length):'…'))
+      +row('Despesas e cotas',F_DESP(p)))
+    +grp('⚖️ Transparência externa',patTSE(p,id))
+    +`<h4 style="color:var(--gold);font-size:12px;margin:14px 0 6px">🗳️ Últimas votações nominais</h4>${votosHTML(id)}`
+    +`<p class="muted" style="margin-top:10px">ℹ️ Política de links: só existe âncora quando o destino é específico do parlamentar (localizador oficial na Câmara ou Senado, despesas, PLs, redes, e-mail, página da candidatura no TSE). Onde não há dado aberto por parlamentar — processos por pessoa (CNJ/tribunais) — o botão abre um aviso explicando o que existe oficialmente. Nada aqui é inventado.</p>`;
+}
+function fstatsHTML(id){const p=POL.find(x=>x.id===id),d=DET[id]||{};
+  const st=[['Projetos',d.props?d.props.length:(p.propsSnap!=null?p.propsSnap:'…')],['Votações',d.votos?d.votos.length:'…'],['Idade',d.det.idade||'…'],['Comissões',d.semAtiv?'—':(d.orgaos?d.orgaos.length:'…')],['Frentes',d.semAtiv?'—':(d.frentes?d.frentes.length:'…')],['Escolaridade',(d.det.escolaridade||'…')]];
+  if(d.stats)st.push(['Reclamações',d.stats.complaints],['Respostas',d.stats.responses],['Apoios',d.stats.supports]);
+  else st.push(['Reclamações','…'],['Respostas','…'],['Apoios','…']);
+  return st.map(x=>`<div class="stat"><small>${x[0]}</small><b>${x[1]}</b></div>`).join('')}
+function renderFicha(id){
+  if(FICHA_ID!==id)return; /* a ficha aberta é de outro político — render antigo não rouba a tela */
+  const p=POL.find(x=>x.id===id),d=DET[id]||{};
+  const tab=FTAB[id];
+  const eCam=p.fonte==='senado'?F_SENADO(p.num):F_CAMARA(p);
+  let conteudo='';
+  if(tab==='ficha')conteudo=fichaHTML(id);
+  else if(tab==='props')conteudo=propsHTML(id);
+  else if(tab==='votos')conteudo=votosHTML(id);
+  else if(tab==='atividade')conteudo=atividadeHTML(id);
+  else if(tab==='rec')conteudo=recHTML(id);
+  $('#fichaBody').innerHTML=`
+    <div class="fhead">${av(p,'avXL')}
+      <div style="flex:1;min-width:200px"><h2 style="font-size:20px">${esc(p.nome)}</h2>
+      <div class="cmeta">${esc(p.partido)} · ${esc(p.uf)} · ${esc(p.cargo)}${p.leg?' · '+esc(p.leg)+'ª legislatura':''}</div>
+      <div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap">${p.selo?'<span class="badge ok">✅ Verificado</span>':'<span class="badge">Sem selo</span>'}${p.email?'<span class="badge ok">✉️ Contato oficial</span>':''}${candChips(p)?`<span class="badge tse">🗳️ ${candChips(p)}</span>`:''}</div></div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <button class="btn sm" onclick="souPolitico('${esc(id)}')"><i class="fa-solid fa-fingerprint"></i> É você? Verificar</button>
+        <button class="btn red sm" onclick="abrirForm('${esc(id)}','rec')"><i class="fa-solid fa-bullhorn"></i> Reclamar</button>
+        <button class="btn green sm" onclick="abrirForm('${esc(id)}','apo')"><i class="fa-solid fa-thumbs-up"></i> Apoiar</button>
+      </div>
+    </div>
+    <div class="fstats" id="fstats">${fstatsHTML(id)}</div>
+    <div class="ftabs">
+      ${[['ficha','📋 Ficha'],['props','📚 Projetos'+(d.props?' ('+d.props.length+')':'')],['votos','🗳️ Como votou'+(d.votos?' ('+d.votos.length+')':'')],['atividade','🏛️ Atividade'],['rec','📣 Reclamações / Apoios']]
+        .map(t=>`<button class="${tab===t[0]?'on':''}" onclick="FTAB['${esc(id)}']='${t[0]}';renderFicha('${esc(id)}')">${t[1]}</button>`).join('')}
+    </div>
+    <div>${conteudo}</div>
+    <div class="fontes">
+      <div class="fcard">🏛️ <b>Página oficial</b><br><span class="muted">Ficha institucional completa — ${p.fonte==='senado'?'Senado':'Câmara'}</span><br>${eCam}</div>
+      <div class="fcard">💰 <b>Despesas e cotas</b><br><span class="muted">${p.fonte==='senado'?'O Senado não publica despesas por senador — busca nomeada no portal oficial':'Cota parlamentar e verba de gabinete — página do deputado na Câmara'}</span><br>${F_DESP(p)}</div>
+      <div class="fcard">📚 <b>Projetos de Lei</b><br><span class="muted">PLs com autoria dele — lista completa na página do Congresso</span><br><a class="fonte" href="congresso.html?autor=${encodeURIComponent(p.nome)}${autorIdQ(p)?'&autorId='+autorIdQ(p):''}" onclick="return abrePlsCongresso(event,'${esc(p.nome)}','${autorIdQ(p)}')">Ver PLs no Congresso →</a></div>
+      <div class="fcard">🗳️ <b>Nº de urna (TSE 2026)</b><br><span class="muted">${fcardTse(p)}</span></div>
+    </div>`;
+  if(tab==='rec'&&RECSEC){const el=document.getElementById('recsec-'+RECSEC);
+    if(el)el.scrollIntoView({block:'start'})}
+}
+/* A ficha só "existe" para o político da abertura mais recente: callbacks
+   antigos (stats/props/votos chegando depois do usuário trocar de político)
+   não podem reabrir o modal nem trocar o conteúdo por outro político. */
+const fichaAtiva=id=>FICHA_ID===id&&document.getElementById('mFicha').classList.contains('open');
+function fechar(id){document.getElementById(id).classList.remove('open');
+  if(id==='mFicha'){FICHA_ID=null;RECSEC=null}}
+
+/* ---------- ENRIQUECIMENTO (Câmara / Senado) ---------- */
+function camaraBase(){return API} // proxy /api/camara no backend (localhost, Railway ou Railway remoto via Pages)
+async function preencheDetalhe(id){
+  const p=POL.find(x=>x.id===id);if(!p)return;
+  const d=DET[id];
+  if(p.fonte==='senado'){
+    try{const r=await fetch('https://legis.senado.leg.br/dadosabertos/senador/'+p.num+'.json',{headers:{Accept:'application/json'}});
+      const j=await r.json();const P=((j.DetalheParlamentar||j).Parlamentar)||{};const par=P.IdentificacaoParlamentar||{};const bb=P.DadosBasicosParlamentar||{};
+      d.det.nomeCivil=par.NomeCompletoParlamentar||'—';
+      d.det.nasc=bb.DataNascimento?fmtData(bb.DataNascimento):'—';d.det.idade=idade(bb.DataNascimento);
+      d.det.munic=((bb.Naturalidade||'')+(bb.UfNaturalidade?'/'+bb.UfNaturalidade:''))||'—';
+      d.det.escolaridade='—'; /* API do Senado não publica escolaridade */
+      d.det.situacao=par.Situacao||'—';
+      const tels=[].concat((P.Telefones||{}).Telefone||[]).map(t=>t.NumeroTelefone).filter(Boolean);
+      d.det.gabinete=bb.EnderecoParlamentar||'—';
+      d.det.contato=tels.join(' · ')||'—';
+      d.det.redes=[];
+      if(par.UrlPaginaParlamentar&&!p.url)p.url=par.UrlPaginaParlamentar;
+    }catch(e){d.det.erroSen=true}
+    d.detDone=true;
+    d.semAtiv=true; /* API aberta do Senado não publica comissões/frentes/ocupações por senador */
+    try{const r=await fetch('https://legis.senado.leg.br/dadosabertos/senador/'+p.num+'/votacoes.json',{headers:{Accept:'application/json'}});
+      const j=await r.json();const arr=[].concat((((j.VotacaoParlamentar||{}).Parlamentar||{}).Votacoes||{}).Votacao||[]);
+      d.votosHist=arr;
+      d.votos=arr.slice(0,10).map(v=>{const s=v.SessaoPlenaria||{};const m=v.Materia||{};
+        const t=m.DescricaoIdentificacao||((m.Sigla||'')+' '+(m.Numero||'')+'/'+(m.Ano||''))||((v.DescricaoVotacao||'').slice(0,60))||'Votação SF';
+        return{t:t,e:((v.DescricaoVotacao||'')||(m.Ementa||'')).slice(0,140),v:v.SiglaDescricaoVoto||'',d:s.DataSessao?fmtData(s.DataSessao):''}});
+      d.votosFim=true;
+    }catch(e){d.votosFim=true}
+    if(fichaAtiva(id))renderFicha(id);
+    return;
+  }
+  // ---- Deputado Federal (Câmara) ----
+  const CB=camaraBase(),CA=CB+'/api/camara/';
+  try{const r=await fetch(CA+'deputados/'+p.num);const j=await r.json();const dd=j.dados||{};
+    if(dd.dataNascimento){d.det.idade=idade(dd.dataNascimento);d.det.nasc=fmtData(dd.dataNascimento)}
+    if(dd.escolaridade)d.det.escolaridade=dd.escolaridade;
+    if(dd.nomeCivil)d.det.nomeCivil=dd.nomeCivil;
+    if(dd.municipioNascimento)d.det.munic=(dd.municipioNascimento||'')+(dd.ufNascimento?'/'+dd.ufNascimento:'');
+    const us=dd.ultimoStatus||{};
+    if(us.idLegislatura)p.leg=us.idLegislatura;
+    d.det.situacao=us.situacao||'';d.det.condicao=us.condicaoEleitoral||'';
+    d.det.redes=(us.redesSociais||[]).filter(Boolean);
+    const gab=us.gabinete||dd.gabinete;
+    if(gab)d.det.gabinete=(gab.nome||'')+(gab.predio?' · '+gab.predio:'')+(gab.andar?' '+gab.andar:'')+(gab.sala?' '+gab.sala:'');
+    if(gab)d.det.contato=[gab.telefone,gab.email].filter(Boolean).join(' · ');
+  }catch(e){}
+  d.detDone=true;
+  if(fichaAtiva(id))renderFicha(id);
+  try{const ex=await Promise.all([
+    fetch(CA+'deputados/'+p.num+'/orgaos?itens=30').then(y=>y.json()).catch(()=>({dados:[]})),
+    fetch(CA+'deputados/'+p.num+'/frentes').then(y=>y.json()).catch(()=>({dados:[]})),
+    fetch(CA+'deputados/'+p.num+'/ocupacoes').then(y=>y.json()).catch(()=>({dados:[]})),
+    fetch(CA+'deputados/'+p.num+'/historico?itens=10').then(y=>y.json()).catch(()=>({dados:[]}))]);
+    d.orgaos=(ex[0].dados||[]).map(o=>({n:o.nomeOrgao||'',s:o.siglaOrgao||'',c:o.cargo||'',t:o.dataInicio?fmtData(o.dataInicio):''})).filter(o=>o.n);
+    d.frentes=(ex[1].dados||[]).map(f=>f.titulo||'').filter(Boolean);
+    d.ocup=(ex[2].dados||[]).filter(o=>o.titulo).map(o=>o.titulo+(o.entidade?' — '+o.entidade:'')+(o.anoInicio?' ('+o.anoInicio+')':''));
+    d.hist=(ex[3].dados||[]).map(x2=>({d:x2.dataHora?fmtData(x2.dataHora):'',t:x2.descricaoStatus||x2.situacao||''})).filter(x2=>x2.t).slice(0,8);
+  }catch(e){d.orgaos=[];d.frentes=[];d.ocup=[];d.hist=[]}
+  if(fichaAtiva(id))renderFicha(id);
+  try{const r=await fetch(CA+'proposicoes?idDeputadoAutor='+p.num+'&itens=12&ordem=DESC&ordenarPor=id');
+    const j=await r.json();d.props=(j.dados||[]).map(x=>({t:(x.siglaTipo||'')+' '+(x.numero||'')+'/'+(x.ano||''),e:(x.ementa||x.titulo||'').slice(0,160),dt:x.dataApresentacao?fmtData(x.dataApresentacao):'',id:x.id}));}catch(e){d.props=[]}
+  if(fichaAtiva(id))renderFicha(id);
+  // votações nominais do Plenário (3 páginas × 100 = janela maior)
+  try{const now=Date.now();
+    if(now-VOT_CACHE.ts>600000){
+      const pags=await Promise.all([1,2,3].map(pg=>fetch(CA+'votacoes?itens=100&pagina='+pg+'&ordem=DESC&ordenarPor=dataHoraRegistro').then(y=>y.json()).catch(()=>({dados:[]}))));
+      VOT_CACHE.list=[].concat(...pags.map(j=>j.dados||[])).filter(v=>v.siglaOrgao==='PLEN');
+      VOT_CACHE.ts=now}
+    let probed=0;
+    for(const v of VOT_CACHE.list){if(d.votos.length>=10||probed>=60)break;
+      if(!Object.prototype.hasOwnProperty.call(VOTOS_BY_ID,v.id)){probed++;
+        try{const r2=await fetch(CA+'votacoes/'+v.id+'/votos');VOTOS_BY_ID[v.id]=(await r2.json()).dados||[]}catch(e2){}}
+      const arr=VOTOS_BY_ID[v.id]||[];
+      // tipoVoto null = constou na lista mas sem voto registrado — não vale "como votou"
+      const mine=arr.find(y=>y.deputado_&&y.tipoVoto&&String(y.deputado_.id)===String(p.num));
+      if(mine){const pr=v.proposicaoObjeto;const dt=v.data||v.dataHoraRegistro||'';
+        d.votos.push({t:pr&&pr.siglaTipo?((pr.siglaTipo||'')+' '+(pr.numero||'')+'/'+(pr.ano||'')):'Votação PLEN',e:(v.descricao||'').slice(0,140),v:mine.tipoVoto||'',d:dt?fmtData(String(dt).slice(0,10)):'',vid:v.id})}
+      if(fichaAtiva(id)&&FTAB[id]==='votos')renderFicha(id)}
+    d.votosFim=true;
+  }catch(e){d.votosFim=true}
+  if(fichaAtiva(id))renderFicha(id);
+}
+
+/* ---------- ABAS DA FICHA ---------- */
+function votoBadge(v){const s=(v||'').toLowerCase();if(s==='sim')return '<span class="badge ok">Sim</span>';if(s==='não'||s==='nao')return '<span class="badge red">Não</span>';return '<span class="badge">'+esc(v||'Sem registro')+'</span>'}
+function propsHTML(id){const d=DET[id]||{};const p=POL.find(x=>x.id===id);
+  if(!d.props)return '<p class="muted">⏳ Carregando projetos da Câmara…</p>';
+  if(!d.props.length)return '<p class="muted">Nenhuma proposição autoral encontrada nesta legislatura — confira a lista completa na página oficial.</p>';
+  return `<p class="muted" style="margin-bottom:8px">Últimas ${d.props.length} proposições apresentadas pelo(a) parlamentar (dados abertos da Câmara). Clique para a ficha oficial de tramitação, de onde sai o inteiro teor:</p>`+
+  d.props.map(x=>`<div class="quote info"><b style="color:var(--gold)">${esc(x.t)}</b>${x.dt?' <small class="muted">· '+esc(x.dt)+'</small>':''}<br>${esc(x.e)}<br>
+    <a href="https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=${x.id}" target="_blank" rel="noopener">📄 Tramitação oficial ↗</a></div>`).join('')+
+  `<p class="muted" style="margin-top:10px">Veja todas na <a href="https://www.camara.leg.br/deputados/quem-sao/resultado?search=${encodeURIComponent(p.nome)}" target="_blank" rel="noopener">busca oficial da Câmara ↗</a></p>`}
+function votosHTML(id){const d=DET[id]||{},p=POL.find(x=>x.id===id);
+  if(!d.votos)return '<p class="muted">⏳ Carregando votações nominais…</p>';
+  if(!d.votos.length)return '<p class="muted">'+(d.votosFim?'Nenhuma votação nominal registrada nas últimas votações do Plenário.':'Indisponível agora — consulte a página oficial.')+'</p>';
+  return `<p class="muted" style="margin-bottom:8px">${p.fonte==='senado'?'Histórico de votações do Senado.':'Últimas votações nominais do Plenário da Câmara.'}${p.fonte!=='senado'?' Clique para ver como TODOS votaram:':''}</p>`+
+  d.votos.map((x,ix)=>{const click=(p.fonte!=='senado'&&x.vid)?` onclick="abrirVotacao('${x.vid}')" style="cursor:pointer" title="Clique para ver como todos votaram"`:'';
+    return `<div class="quote info"${click}><span style="display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap"><span style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">${votoBadge(x.v)}<b>${esc(x.t)}</b></span>${x.d?`<small class="muted" style="flex:none">${esc(x.d)}</small>`:''}</span>${x.e?`<div style="margin-top:3px" class="muted">${esc(x.e)}</div>`:''}</div>`}).join('')}
+function atividadeHTML(id){const d=DET[id]||{};
+  if(d.orgaos==null)return '<p class="muted">⏳ Carregando atividade parlamentar…</p>';
+  let h='';
+  h+='<h4 style="margin:10px 0 6px">🏛️ Órgãos e comissões</h4>';
+  h+=d.orgaos.length?d.orgaos.map(o=>`<div class="quote info"><b>${esc(o.n)}</b>${o.c?' — '+esc(o.c):''}${o.t?' <small class="muted">desde '+esc(o.t)+'</small>':''}</div>`).join(''):'<p class="muted">Nenhum registro.</p>';
+  h+='<h4 style="margin:14px 0 6px">🤝 Frentes parlamentares</h4>';
+  h+=d.frentes&&d.frentes.length?d.frentes.map(f=>`<div class="quote ok">${esc(f)}</div>`).join(''):'<p class="muted">Nenhum registro.</p>';
+  h+='<h4 style="margin:14px 0 6px">💼 Ocupações declaradas</h4>';
+  h+=d.ocup&&d.ocup.length?d.ocup.map(o=>`<div class="quote info">${esc(o)}</div>`).join(''):'<p class="muted">Nenhum registro.</p>';
+  h+='<h4 style="margin:14px 0 6px">🕐 Histórico recente do mandato</h4>';
+  h+=d.hist&&d.hist.length?d.hist.map(x=>`<div class="quote info">${x.d?'<b>'+esc(x.d)+'</b> — ':''}${esc(x.t)}</div>`).join(''):'<p class="muted">Nenhum registro.</p>';
+  return h}
+
+/* ---------- QUEM VOTOU (Câmara) ---------- */
+async function abrirVotacao(vid){
+  document.getElementById('votosBody').innerHTML='<p class="muted">Carregando votação…</p>';
+  document.getElementById('mVotos').classList.add('open');
+  let votos=VOTOS_BY_ID[vid];
+  if(!votos){try{const r=await fetch(camaraBase()+'/api/camara/votacoes/'+vid+'/votos');votos=(await r.json()).dados||[];VOTOS_BY_ID[vid]=votos}catch(e){votos=null}}
+  if(!votos){document.getElementById('votosBody').innerHTML='<p class="muted">Não foi possível carregar os votos desta votação.</p>';return}
+  const placar={};votos.forEach(v=>{const t=v.tipoVoto||'Sem registro';placar[t]=(placar[t]||0)+1});
+  const ord=['Sim','Não','Abstenção','Obstrução'];
+  const chips=ord.filter(t=>placar[t]).map(t=>`<span class="badge ${t==='Sim'?'ok':t==='Não'?'red':''}">${t}: ${placar[t]}</span>`).join(' ');
+  const outros=Object.keys(placar).filter(t=>ord.indexOf(t)<0&&t!=='Sem registro');
+  const partidos=[...new Set(votos.map(v=>(v.deputado_&&v.deputado_.siglaPartido)||'—'))].sort();
+  window._VOT={votos:votos};
+  document.getElementById('votosBody').innerHTML=`<h3 style="margin-bottom:6px">🗳️ Quem votou como</h3>
+    <p class="muted" style="margin-bottom:8px">Votação <b>${esc(vid)}</b> — Plenário da Câmara</p>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">${chips}${outros.map(t=>`<span class="badge">${esc(t)}: ${placar[t]}</span>`).join(' ')}<span class="badge">Registrados: ${votos.length}</span></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+      <input id="vq" placeholder="🔎 buscar nome…" oninput="renderVotosLista()" style="flex:1;min-width:140px"/>
+      <select id="vp" onchange="renderVotosLista()" style="min-width:130px"><option value="">Todos os partidos</option>${partidos.map(x=>`<option>${esc(x)}</option>`).join('')}</select>
+    </div><div id="vlista"></div>`;
+  renderVotosLista();
+}
+function renderVotosLista(){const w=window._VOT;if(!w)return;
+  const q=(($('#vq')&&$('#vq').value)||'').toLowerCase();const pt=$('#vp')?$('#vp').value:'';
+  const rows=w.votos.filter(v=>{const d=v.deputado_||{};return(!q||(d.nome||'').toLowerCase().includes(q))&&(!pt||(d.siglaPartido||'—')===pt)})
+    .sort((a,b)=>((a.deputado_||{}).nome||'').localeCompare((b.deputado_||{}).nome||''));
+  document.getElementById('vlista').innerHTML=(rows.length?rows.map(v=>{const d=v.deputado_||{};
+    return `<div class="quote info"><span style="display:flex;justify-content:space-between;gap:8px;align-items:center">${votoBadge(v.tipoVoto)}<b>${esc(d.nome||'—')}</b> <small class="muted">${esc(d.siglaPartido||'')}·${esc(d.siglaUf||'')}</small></span></div>`}).join(''):'<p class="muted">Nenhum parlamentar encontrado com esse filtro.</p>')}
+
+/* ---------- RECLAMAÇÕES / APOIOS ---------- */
+let FORM_ID=null,FORM_T='rec';
+function recItemHTML(x,cls){return `<div class="quote ${cls}">${esc(x.content)}<br><small class="muted">${fmtTs(x.createdAt)}</small></div>`}
+function recHTML(id){
+  const d=DET[id]||{};
+  // recs só vira array quando a API responde; placeholder {recs:null} = ainda carregando
+  if(!d.rec||!Array.isArray(d.rec.recs))return '<p class="muted">⏳ Carregando reclamações e apoios…</p>';
+  const R=d.rec;
+  if(R.erro)return `<p class="muted">⚠️ A plataforma de reclamações/apoios está indisponível agora (precisa do backend ativo). Tente recarregar.</p>`;
+  const resps=R.recs.filter(c=>c.response);
+  const recVis=R.recAll?R.recs:R.recs.slice(0,5);
+  const respVis=R.respAll?resps:resps.slice(0,5);
+  const supVis=R.supAll?R.sups:R.sups.slice(0,5);
+  const anc=(s,label)=>`<a class="badge ${s==='rec'?'red':'ok'}" href="javascript:void(0)" onclick="rolaRecSec('${s}')" title="Rolar até a seção">${label}</a>`;
+  let h=`<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px">
+    ${anc('rec',`📣 ${R.recs.length} reclamação(ões)`)}
+    ${anc('resp',`💬 ${resps.length} resposta(s) do parlamentar`)}
+    ${anc('apo',`👍 ${R.sups.length} apoio(s)`)}</div>`;
+  h+=`<h4 id="recsec-rec" style="margin:10px 0 6px;scroll-margin-top:12px">📣 Reclamações (${R.recs.length}) — com resposta quando houver</h4>`;
+  h+=recVis.length?recVis.map(c=>`<div class="quote">${esc(c.content)}<br><small class="muted">${fmtTs(c.createdAt)}${c.responded?' · respondida ✓':''}</small>${c.response?`<div class="quote ok" style="margin-top:6px"><b>Resposta do parlamentar:</b> ${esc(c.response.content)}<br><small class="muted">${fmtTs(c.response.createdAt)}</small></div>`:''}</div>`).join(''):'<p class="muted">Nenhuma reclamação registrada para este parlamentar ainda. Seja a primeira pessoa: use o botão 🔴 Reclamar.</p>';
+  if(R.recs.length>5)h+=`<p style="margin-top:6px"><a href="javascript:void(0)" onclick="toggleRec('${esc(id)}','recAll')">${R.recAll?'▲ mostrar menos':'▼ ver todas as reclamações ('+R.recs.length+') com suas respostas'}</a></p>`;
+  h+=`<h4 id="recsec-resp" style="margin:16px 0 6px;scroll-margin-top:12px">💬 Respostas do parlamentar (${resps.length})</h4>`;
+  h+=resps.length?respVis.map(c=>`<div class="quote"><b>Reclamação:</b> ${esc(c.content)}<br><small class="muted">${fmtTs(c.createdAt)}</small><div class="quote ok" style="margin-top:6px"><b>Resposta do parlamentar:</b> ${esc(c.response.content)}<br><small class="muted">${fmtTs(c.response.createdAt)}</small></div></div>`).join(''):'<p class="muted">Nenhuma resposta do parlamentar ainda. Políticos verificados podem responder às reclamações recebidas.</p>';
+  if(resps.length>5)h+=`<p style="margin-top:6px"><a href="javascript:void(0)" onclick="toggleRec('${esc(id)}','respAll')">${R.respAll?'▲ mostrar menos':'▼ ver todas as respostas ('+resps.length+')'}</a></p>`;
+  h+=`<h4 id="recsec-apo" style="margin:16px 0 6px;scroll-margin-top:12px">👍 Apoios (${R.sups.length})</h4>`;
+  h+=supVis.length?supVis.map(s=>recItemHTML(s,'ok')).join(''):'<p class="muted">Nenhum apoio registrado para este parlamentar ainda. Use o botão 👍 Apoiar.</p>';
+  if(R.sups.length>5)h+=`<p style="margin-top:6px"><a href="javascript:void(0)" onclick="toggleRec('${esc(id)}','supAll')">${R.supAll?'▲ mostrar menos':'▼ ver todos os apoios ('+R.sups.length+')'}</a></p>`;
+  return h;
+}
+function rolaRecSec(sec){RECSEC=null;const el=document.getElementById('recsec-'+sec);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})}
+function toggleRec(id,campo){const d=DET[id]||{};if(d.rec){d.rec[campo]=!d.rec[campo];renderFicha(id)}}
+async function carregaRec(id){
+  const d=DET[id];if(!d||d.rec)return;
+  d.rec={recs:null,sups:null,erro:false};
+  try{
+    const [rc,rs]=await Promise.all([
+      fetch(API+'/api/reclamacoes?politicianId='+encodeURIComponent(id)+'&limit=200').then(r=>r.json()),
+      fetch(API+'/api/apoios?politicianId='+encodeURIComponent(id)+'&limit=200').then(r=>r.json())
+    ]);
+    if(!rc||rc.ok!==true||!rs||rs.ok!==true)throw new Error('resposta inválida');
+    d.rec={recs:rc.complaints||[],sups:rs.supports||[],recAll:false,respAll:false,supAll:false,erro:false};
+  }catch(e){d.rec={recs:[],sups:[],erro:true}}
+  if(fichaAtiva(id)&&FTAB[id]==='rec')renderFicha(id);
+}
+function abrirForm(id,tipo){const p=POL.find(x=>x.id===id);if(!p)return;
+  FORM_ID=id;FORM_T=tipo;
+  $('#fTitle').textContent=tipo==='apo'?'👍 Dar apoio':'📝 Fazer reclamação';
+  $('#fPol').value=p.nome+' ('+p.partido+'-'+p.uf+')';
+  $('#fTitulo').value='';$('#fDesc').value='';
+  document.getElementById('mForm').classList.add('open')}
+async function enviaForm(){
+  const ti=($('#fTitulo').value||'').trim(),de=($('#fDesc').value||'').trim();
+  if(ti.length<5||de.length<10)return toast('Preencha título (5+) e descrição (10+).');
+  try{const r=await fetch(API+'/api/reclamacoes/public',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({politicianId:FORM_ID,tipo:FORM_T,titulo:ti,descricao:de})});
+    if(r.ok){toast(FORM_T==='apo'?'Apoio registrado! 👍':'Reclamação registrada! 📣');fechar('mForm');
+      // contadores do card/ficha ficam certos na hora
+      STATS_ALL=null;carregaStatsGlobais();
+      if(DET[FORM_ID]){DET[FORM_ID].rec=null;DET[FORM_ID].statsFim=null;
+        if(document.getElementById('mFicha').classList.contains('open')&&FICHA_ID===FORM_ID){carregaStats(FORM_ID);carregaRec(FORM_ID)}}
+      return}
+    if(r.status===404)toast('Servidor em atualização — registro salvo localmente.');
+    else{const e=await r.json().catch(()=>({}));toast('Erro ao enviar: '+(e.error||r.status))}}
+  catch(e){toast('Erro de conexão — tentando salvar localmente.')}
+  const key='mb_rec_'+FORM_ID;const m=JSON.parse(localStorage.getItem(key)||'[]');
+  m.unshift({titulo:ti,descricao:de,ts:Date.now(),tipo:FORM_T});
+  localStorage.setItem(key,JSON.stringify(m.slice(0,50)));
+  fechar('mForm');toast(FORM_T==='apo'?'Apoio salvo localmente. 👍':'Reclamação salva localmente. 📣')}
+
+/* ---------- VERIFICAÇÃO ---------- */
+let VERIF_PID='';
+function souPolitico(id){const p=POL.find(x=>x.id===id);if(!p)return;
+  VERIF_PID=id;$('#verifAlvo').textContent='Perfil: '+p.nome;
+  $('#verifPasso1').style.display='block';$('#verifPasso2').style.display='none';
+  const dv=$('#verifDev');dv.style.display='none';dv.innerHTML='';
+  document.getElementById('mVerif').classList.add('open')}
+async function solicitarCodigo(){const em=($('#vEmail').value||'').trim();
+  if(em.length<5)return toast('Informe o e-mail institucional.');
+  try{const r=await fetch(API+'/api/verificacao/solicitar',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({politicianId:VERIF_PID,email:em})});
+    const data=await r.json().catch(()=>({}));
+    if(r.ok&&data.ok){$('#verifPasso1').style.display='none';$('#verifPasso2').style.display='block';
+      const dv=$('#verifDev');
+      if(dv&&data.devConfirmUrl){dv.style.display='block';dv.innerHTML='MODO DEV (SMTP não configurado) — confirme pelo link: <a style="color:var(--blueL)" href="'+data.devConfirmUrl+'">confirmar agora</a>.'}
+      toast(data.message||'Link de confirmação enviado!')}
+    else toast(data.error||'Falha ao solicitar verificação.')}
+  catch(e){toast('Backend indisponível para verificação.')}}
+async function confirmarCodigo(){const cod=($('#vCodigo').value||'').trim();
+  try{const r=await fetch(API+'/api/verificacao/confirmar?token='+encodeURIComponent(cod));
+    const data=await r.json().catch(()=>({}));
+    if(r.ok&&data.ok){const vi=POL.findIndex(x=>x.id===VERIF_PID);if(vi>=0)POL[vi].selo=true;
+      fechar('mVerif');toast('✅ Selo de verificado concedido!');renderFicha(VERIF_PID)}
+    else toast(data.error||'Token inválido ou expirado.')}
+  catch(e){toast('Erro de conexão na verificação.')}}
+
+/* ---------- COMPARAÇÃO ---------- */
+function togglePin(id){
+  if(PINS.includes(id))PINS=PINS.filter(x=>x!==id);
+  else if(PINS.length<3)PINS.push(id);
+  else return toast('Máximo de 3 para comparar.');
+  $('#cmpbar').classList.toggle('on',PINS.length>0);
+  $('#cmpcount').textContent=PINS.length+' fixado(s)';
+  renderRad();
+}
+function limparPins(){PINS=[];$('#cmpbar').classList.remove('on');renderRad()}
+function cmpCell(label,vals){return `<tr><td>${label}</td>${vals.map(v=>`<td><b>${v==null||v===''?'—':v}</b></td>`).join('')}</tr>`}
+function abrirCmp(){
+  const ps=PINS.map(id=>POL.find(x=>x.id===id)).filter(Boolean);
+  if(ps.length<2)return toast('Fixe pelo menos 2 para comparar.');
+  const dets=ps.map(p=>DET[p.id]||{});
+  let h=`<div style="overflow-x:auto"><table class="comptable"><tr><th></th>${ps.map(p=>`<th>${av(p,'av')}<br>${esc(p.nome)}</th>`).join('')}</tr>`;
+  h+=cmpCell('Partido · UF',ps.map(p=>esc(p.partido)+'-'+esc(p.uf)));
+  h+=cmpCell('Cargo',ps.map(p=>esc(p.cargo)));
+  h+=cmpCell('Idade',dets.map(d=>d.det&&d.det.idade||null));
+  h+=cmpCell('Escolaridade',dets.map(d=>d.det&&d.det.escolaridade||null));
+  h+=cmpCell('Projetos apresentados',dets.map(d=>d.props?d.props.length:(null)));
+  h+=cmpCell('Votações nominais',dets.map(d=>d.votos?d.votos.length:(null)));
+  h+=cmpCell('Comissões / órgãos',dets.map(d=>d.orgaos?d.orgaos.length:(null)));
+  h+=cmpCell('Frentes parlamentares',dets.map(d=>d.frentes?d.frentes.length:(null)));
+  h+=cmpCell('E-mail institucional',ps.map(p=>p.email?'✅':'—'));
+  h+='</table></div><p class="muted" style="margin-top:10px">Os contadores usam os dados já carregados na ficha de cada parlamentar — abra as fichas para completar a comparação.</p>';
+  $('#cmpBody').innerHTML=h;
+  document.getElementById('mCmp').classList.add('open');
+}
+
+/* ---------- INIT ---------- */
+carregaPol();
+carregaTseIdx();
+// deep-link: parlamentares.html?id=camara-204379 abre a ficha direto —
+// com retry, porque a lista de parlamentares pode ainda estar carregando
+(function(){const id=new URLSearchParams(location.search).get('id');if(!id)return;
+  const t0=Date.now();const tenta=()=>{if(POL.find(x=>x.id===id))abrirFicha(id);
+    else if(Date.now()-t0<8000)setTimeout(tenta,300)};
+  setTimeout(tenta,400)})();
+</script>
+</body>
+</html>

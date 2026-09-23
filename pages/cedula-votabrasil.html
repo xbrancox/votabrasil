@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>VotaBrasil · Cédula de Votação 2026</title>
+<meta name="description" content="Sistema de votação e revogação de voto para Eleições 2026">
+<meta property="og:title" content="VotaBrasil · Cédula de Votação 2026">
+<meta property="og:description" content="Sistema cívico de votação e revogação">
+<meta property="og:type" content="website">
+<meta property="og:url" content="http://localhost:8080/cedula-votabrasil.html">
+<meta property="og:image" content="https://VotaBrasil-redesign-production.up.railway.app/og-image.png">
+<meta property="og:site_name" content="VotaBrasil">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://VotaBrasil-redesign-production.up.railway.app/og-image.png">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="config.local.js?v=2"></script>
+<style>
+:root{--bg:#061a3a;--card:#0d2242;--card2:#123059;--line:rgba(127,176,245,.22);--ink:#fff;--muted:#94A3B8;--gold:#FFD700;--blue:#115FCB;--blueL:#4a90f0;--green:#2ECC71;--red:#E74C3C;--r:14px}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 Manrope,sans-serif;padding:20px}
+.wrap{max-width:1180px;margin:0 auto}
+h1{font-family:Montserrat;font-weight:900;font-size:26px;margin:8px 0}
+.kick{color:var(--gold);font:800 11px Manrope;letter-spacing:.2em;text-transform:uppercase}
+.muted{color:var(--muted);font-size:12.5px}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;border:1px solid var(--line);background:var(--card2);color:var(--ink);font:700 13px Manrope;padding:10px 16px;cursor:pointer}
+.btn:hover{filter:brightness(1.1)}
+.btn.gold{background:linear-gradient(135deg,#FFD700,#FFA500);border:none;color:#1a1400}
+.btn.sm{padding:6px 12px;font-size:12px}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+input,select{background:var(--card2);border:1px solid var(--line);border-radius:10px;color:var(--ink);padding:10px 12px;font:500 14px Manrope;width:100%}
+.filtros{display:grid;grid-template-columns:2fr 1.4fr .7fr 1.2fr auto;gap:10px;margin:16px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px;cursor:pointer;transition:.15s}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.3)}
+.av{width:56px;height:56px;border-radius:50%;object-fit:cover;object-position:top;background:var(--card2);flex:none}
+.badge{font:800 10px Manrope;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Cédula de Votação 2026</h1>
+
+<p class="muted">Escolha um cargo para visualizar os candidatos:</p>
+
+<div class="filtros">
+  <div>
+    <select id="cargo-select">
+      <option value="Presidente">Presidente</option>
+      <option value="Governador">Governador</option>
+      <option value="Senador">Senador</option>
+      <option value="Deputado Federal">Dep. Federal</option>
+      <option value="Deputado Estadual">Dep. Estadual</option>
+    </select>
+  </div>
+  <div>
+    <select id="uf-select">
+      <option value="all">Todos os UFs</option>
+      <option value="SP">São Paulo</option>
+      <option value="RJ">Rio de Janeiro</option>
+      <option value="MG">Minas Gerais</option>
+      <option value="BA">Bahia</option>
+    </select>
+  </div>
+  <button class="btn gold" onclick="buscar(1)">Buscar</button>
+</div>
+
+<div id="info" class="muted">Selecione um cargo acima para começar.</div>
+<div class="grid" id="lista" style="margin-top:12px"></div>
+
+<div class="pager" style="margin-top:20px">
+  <button class="btn sm" id="pgAnt" onclick="buscar(page-1)" disabled>‹ Anterior</button>
+  <span class="muted" id="pgInfo">—</span>
+  <button class="btn sm" id="pgProx" onclick="buscar(page+1)" disabled>Próxima ›</button>
+</div>
+</div>
+</div>
+
+<!-- Modal de confirmação -->
+<div id="confirm-modal" class="modal hidden">
+  <div class="modal-content">
+    <h3>Confirmar Voto</h3>
+    <img id="confirm-photo" class="av" src="" alt="">
+    <div class="candidate-info">
+      <h4 id="confirm-name"></h4>
+      <p id="confirm-party"></p>
+    </div>
+    <p class="muted">Deseja confirmar seu voto neste candidato?</p>
+    <div style="display:flex;gap:12px;margin-top:20px">
+      <button id="cancel-vote" class="btn-secondary">Cancelar</button>
+      <button id="confirm-vote" class="btn-primary">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* API Base - usa variável global da config se definida */
+const API = (window.VotaBrasil && typeof window.VotaBrasil.API_BASE === 'string') ? window.VotaBrasil.API_BASE : 'http://localhost:8080';
+
+const UFS = ['AC','AL','AM','AP','BA','CE','DF','ES','GO','MA','MG','MS','MT','PA','PB','PE','PI','PR','RJ','RN','RO','RR','RS','SC','SE','SP','TO'];
+const $ = s => document.querySelector(s);
+
+let page = 1, total = 0, LAST = [], SNAP = null, PS = 50;
+let modoDemo = true; // Assume modo demo se não conectar à API
+
+/* Carregar snapshot local se API falhar */
+async function carregarSnapshot() {
+  try {
+    const rs = await fetch('../data/candidatos-2026.json');
+    if (!rs.ok) throw new Error('HTTP ' + rs.status);
+    SNAP = await rs.json();
+    modoDemo = false;
+    console.log('✅ Snapshot local carregado:', SNAP.candidatos ? SNAP.candidatos.length : 0, 'candidatos');
+    return SNAP;
+  } catch (e) {
+    console.error('❌ Falha ao carregar snapshot:', e.message);
+    modoDemo = true;
+    return null;
+  }
+}
+
+/* Renderizar card de candidato */
+function card(c, i) {
+  const sit = (c.situacao || '').toUpperCase();
+  const cls = sit.includes('INDEF') ? 'red' : (sit.includes('DEFERIDO') ? 'ok' : 'amb');
+  
+  return `<div class="card" onclick="abrirIdx(${i})" style="cursor:pointer;transition:transform 0.15s ease">
+    <div style="display:flex;gap:12px;align-items:center">
+      <img class="av" src="${c.foto || ''}" alt="" style="width:50px;height:50px;border-radius:12px;object-fit:cover">
+    </div>
+    <div style="flex:1">
+      <b style="font-size:14.5px">${c.nomeUrna||c.nomeCivil||'—'}</b>
+      <div class="muted" style="margin-top:2px">${c.numero||''} · <b>${c.partido||''}</b> · ${c.uf||''}${c.idade?' · '+c.idade+' anos':''}${c.ocupacao?' · '+c.ocupacao:''}</div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;margin-top:5px;flex-wrap:wrap">
+      <span class="badge ${cls}" style="display:inline-block">${c.situacao||'—'}</span>
+      <span style="font-size:12px;font-weight:700;color:var(--green,#2ECC71)">💰 Fundo: ${c.fundoEleitoralRecebido?'R$ '+Number(c.fundoEleitoralRecebido).toLocaleString('pt-BR'):'Não declarado'}</span>
+    </div>
+  </div></div>`;
+}
+
+/* Renderizar lista */
+function render(arr) {
+  LAST = arr;
+  $('#info').textContent = total + ' candidato(s) — mostrando ' + arr.length + ' nesta página.';
+  $('#lista').innerHTML = arr.map((c,i)=>card(c,i)).join('') || '<p class="muted">Nenhum candidato encontrado.</p>';
+}
+
+/* Buscar candidatos da API */
+async function buscar(p) {
+  page = Math.max(1,p);
+  $('#info').textContent = 'Carregando…';
+  $('#lista').innerHTML = '';
+  
+  // Primeiro tenta API do servidor
+  try {
+    const url = `${API}/api/candidatos-tse?cargo=${$('#cargo-select').value}&uf=${$('#uf-select').value}&page=${page}&pageSize=${PS}`;
+    const r = await fetch(url, {cache: 'force-cache'});
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const j = await r.json();
+    
+    let arr;
+    if (Array.isArray(j)) { arr = j; total = arr.length; }
+    else { arr = j.candidatos || j.dados || []; total = j.total != null ? j.total : arr.length; }
+    
+    if (arr.length > 0) {
+      modoDemo = false;
+      render(arr);
+      $('#pgAnt').disabled = page <= 1;
+      $('#pgProx').disabled = page >= Math.ceil(total / PS);
+      $('#pgInfo').textContent = 'Página ' + page + ' de ' + Math.ceil(total / PS);
+    } else {
+      throw new Error('Nenhum resultado da API');
+    }
+  } catch (e) {
+    // Fallback para snapshot local
+    console.warn('⚠️ API indisponível, usando snapshot local:', e.message);
+    modoDemo = true;
+    try {
+      if (!SNAP) await carregarSnapshot();
+      if (SNAP && SNAP.candidatos) {
+        let lista = SNAP.candidatos;
+        const cargo = $('#cargo-select').value;
+        if (cargo) lista = lista.filter(c => String(c.cargo) === String(cargo));
+        if (lista.length > 0) {
+          total = lista.length;
+          render(lista.slice((page-1)*PS, page*PS));
+          $('#pgAnt').disabled = page <= 1;
+          $('#pgProx').disabled = page >= Math.ceil(total / PS);
+          $('#pgInfo').textContent = 'Página ' + page + ' de ' + Math.ceil(total / PS) + ' (modo snapshot)';
+          aviso('📦 Modo snapshot: dados locais (backend temporariamente indisvolúvel)');
+        }
+      }
+    } catch(e2) {
+      $('#info').textContent = '❌ Erro: ' + e2.message;
+      $('#lista').innerHTML = '<p class="muted">Não foi possível carregar candidatos nem da API nem do snapshot local.</p>';
+    }
+  }
+}
+
+/* Inicializar */
+document.addEventListener('DOMContentLoaded', () => {
+  $('#cargo-select').addEventListener('change', () => { page=1; buscar(1); });
+  $('#uf-select').addEventListener('change', () => { page=1; buscar(1); });
+  buscar(1);
+});
+</script>
+</body>
+</html>

@@ -466,6 +466,44 @@ async function handleApi(req, res, url) {
       const inicio = (pagina - 1) * porPagina;
       const candidatos = lista.slice(inicio, inicio + porPagina);
       
+      // Tentar adicionar fotos dos incumbentes (deputados + senadores)
+      const incumbentes = tse.getIncumbents();
+      const candidatosComFotos = candidatos.map(c => {
+        // Tentar encontrar um incumbente correspondente
+        const incumbenteCorrespondente = incumbentes.find(i => {
+          // Corresponder por cargo, estado e partido/nome
+          const cargoCorrespondente = 
+            (i.position === 'Deputado Federal' && ['Deputado Federal', 6].includes(c.cargo)) ||
+            (i.position === 'Deputado Estadual' && ['Deputado Estadual', 7].includes(c.cargo)) ||
+            (i.position === 'Senador Federal' && ['Senador', 5].includes(c.cargo));
+          
+          const estadoCorrespondente = i.state === c.uf;
+          const partidoCorrespondente = 
+            i.party === c.partido ||
+            (i.party && c.partido && (i.party.includes(c.partido) || c.partido.includes(i.party)));
+          
+          const nomeCorrespondente = 
+            i.name && c.nomeUrna && 
+            (i.name.toLowerCase().includes(c.nomeUrna.toLowerCase()) || 
+             c.nomeUrna.toLowerCase().includes(i.name.toLowerCase()));
+          
+          return cargoCorrespondente && estadoCorrespondente && (partidoCorrespondente || nomeCorrespondente);
+        });
+        
+        if (incumbenteCorrespondente && incumbenteCorrespondente.photo) {
+          c.foto = incumbenteCorrespondente.photo;
+        } else if (!c.foto) {
+          // Se ainda não tiver foto, usar ui-avatars como fallback
+          const name = (c.nomeUrna || c.nomeCivil || c.nome || '').trim();
+          if (name) {
+            const seed = encodeURIComponent(name.split(' ')[0]);
+            c.foto = `https://ui-avatars.com/api/?name=${seed}&background=061a3a&color=fff&size=128`;
+          }
+        }
+        
+        return c;
+      });
+      
       return sendJson(res, 200, {
         ok: true,
         mode: all.mode,
@@ -477,8 +515,8 @@ async function handleApi(req, res, url) {
         totalPaginas,
         pagina,
         porPagina,
-        retornados: candidatos.length,
-        candidatos
+        retornados: candidatosComFotos.length,
+        candidatos: candidatosComFotos
       });
     } catch (e) {
       return sendJson(res, 500, { ok: false, error: e.message });
@@ -1214,6 +1252,10 @@ const server = http.createServer(async (req, res) => {
       return res.end();
     }
     if (url.pathname.startsWith('/api/')) return await handleApi(req, res, url);
+    // Rota direta para cédula de votação
+    if (url.pathname === '/cedula-votabrasil.html') {
+      return serveStatic(res, new URL('/pages/cedula-votabrasil.html', 'http://localhost:' + PORT));
+    }
     return serveStatic(res, url);
   } catch (e) {
     return sendJson(res, 500, { error: 'Erro interno: ' + e.message });
