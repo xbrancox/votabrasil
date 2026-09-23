@@ -56,3 +56,6 @@ window.VotaBrasil.TERMOMETRO = {
 console.log('%c🟡 VotaBrasil', 'font-size:16px;font-weight:bold;color:#FFD700');
 console.log('%cModo: ' + window.VotaBrasil.MODO, 'color:#94A3B8');
 console.log('%cBackend: ' + API_BASE, 'color:#2ECC71');
+
+window.VotaBrasil=window.VotaBrasil||window.MudaBrasil||{};
+window.MudaBrasil=window.MudaBrasil||window.VotaBrasil;
