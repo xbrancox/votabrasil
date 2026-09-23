@@ -608,11 +608,11 @@ async function carregarCandidatos(){
     if(uf && uf!=='BR')u+='&uf='+encodeURIComponent(uf);
     if(busca)u+='&busca='+encodeURIComponent(busca);
     let j=await fetchJson(u);
-    sheetLista=(j.candidatos||[]).filter(c=>c.sq);
+    sheetLista=(j.candidatos||[]).filter(c=>c.sq||c.numero);
     if(!sheetLista.length && uf && uf!=='BR'){
       const u2='/api/candidatos-tse?cargo='+num+'&porPagina=500'+(busca?'&busca='+encodeURIComponent(busca):'');
       j=await fetchJson(u2);
-      sheetLista=(j.candidatos||[]).filter(c=>c.sq);
+      sheetLista=(j.candidatos||[]).filter(c=>c.sq||c.numero);
     }
     if(!sheetLista.length) throw new Error('Nenhum candidato retornado pelo servidor');
     st.textContent=sheetLista.length+' candidatos oficiais'+(uf&&uf!=='BR'?' em '+uf:'')+'. Toque para escolher.';
@@ -627,15 +627,15 @@ function renderCandSheet(){clearTimeout(sheetTimer);sheetTimer=setTimeout(carreg
 function renderCandList(){
   const sel=getRascunho()[sheetCargo];
   document.getElementById('cand-list').innerHTML=sheetLista.map(c=>{
-    const isSel=sel&&String(sel.sq)===String(c.sq);
+    const isSel=sel&&String(sel.sq||sel.numero)===String(c.sq||c.numero);
     const f=fotoUrl(c);
-    return '<button class="co'+(isSel?' sel':'')+'" onclick="escolher(\''+esc(c.sq)+'\')"><div class="av">'+(f?'<img src="'+esc(f)+'" alt="" loading="lazy" onerror="this.style.display=\'none\'">':'')+'<span>'+esc((c.nomeUrna||'?').slice(0,2).toUpperCase())+'</span></div><div class="ei"><h4>'+esc(c.nomeUrna)+'</h4><p>'+esc(c.partido)+(c.coligacao?' · '+esc(c.coligacao):'')+'</p></div><span class="nm">'+esc(c.numero)+'</span></button>';
+    return '<button class="co'+(isSel?' sel':'')+'" onclick="escolher(\''+esc(c.sq||c.numero)+'\')"><div class="av">'+(f?'<img src="'+esc(f)+'" alt="" loading="lazy" onerror="this.style.display=\'none\'">':'')+'<span>'+esc((c.nomeUrna||'?').slice(0,2).toUpperCase())+'</span></div><div class="ei"><h4>'+esc(c.nomeUrna)+'</h4><p>'+esc(c.partido)+(c.coligacao?' · '+esc(c.coligacao):'')+'</p></div><span class="nm">'+esc(c.numero)+'</span></button>';
   }).join('')||'<p class="sh-info">Nenhum candidato encontrado com esse filtro.</p>';
 }
 function escolher(sq){
-  const c=sheetLista.find(x=>String(x.sq)===String(sq));if(!c)return;
+  const c=sheetLista.find(x=>String(x.sq||x.numero)===String(sq));if(!c)return;
   const r=getRascunho();
-  r[sheetCargo]={sq:String(c.sq),nomeUrna:c.nomeUrna,partido:c.partido,numero:String(c.numero||''),uf:c.uf,foto:c.foto||c.urlFoto||''};
+  r[sheetCargo]={sq:String(c.sq||c.numero),nomeUrna:c.nomeUrna,partido:c.partido,numero:String(c.numero||''),uf:c.uf,foto:c.foto||c.urlFoto||''};
   setRascunho(r);fecharSheet();renderCedula();
   showToast('✓ '+c.nomeUrna+' na cédula ('+sheetCargo+')');
 }
