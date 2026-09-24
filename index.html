@@ -1017,42 +1017,69 @@ setTimeout(initSSE, 2000);
   if(window.__vbqsDone)return; window.__vbqsDone=1;
   var SENT=["plataforma civica de voto continuo","plataforma de opiniao e participacao","prototipo demonstrativo, sem valor juridico"];
   var TEXTO=`
-<div class="vb-qs" style="line-height:1.7">
- <div style="text-transform:uppercase;letter-spacing:.14em;font-size:.74em;opacity:.65;margin:0 0 8px">Quem Somos</div>
- <h2 style="margin:.1em 0 .55em">O poder emana do povo - e não acaba no dia da eleição.</h2>
- <p>O <strong>VotaBrasil</strong> é uma plataforma cívica de <strong>voto contínuo e revogável</strong>. Nossa tese cabe em uma frase: <em>seu voto coloca, e seu voto tira</em>. Entre uma eleição e outra, o cidadão hoje entrega um cheque em branco de quatro anos e espera. Nós acreditamos que mandato é contrato - e contrato se fiscaliza, se cobra e, quando descumprido, se encerra. Não por golpe, não por rua, não por tapetão: por regra clara, escrita e auditável por quem elegeu.</p>
- <h3>O problema que existia antes de nós</h3>
- <p>Depois da posse, o eleitor vira espectador. Não há ferramenta simples para dizer "este representante não me representa mais". A desconfiança cresce porque falta checagem: o cidadão confia ou desconfia no escuro, sem conseguir provar nem o próprio voto, nem a conduta de quem o recebeu. Resultado: abstenção, raiva sem saída e a sensação de que democracia é evento de dois em dois anos, não prática diária.</p>
- <h3>O que propomos</h3>
- <p>Um <strong>termômetro de confiança</strong> público por político, alimentado por dados oficiais e pela voz de quem elegeu. A régua é objetiva: <strong>70% dos votos que elegeram um representante equivalem à cassação do mandato</strong> - a revogação abre após a posse e permanece durante todo o exercício. A confiança não é estática: o termômetro esfria com o tempo quando não há sinais novos de cumprimento, com janela e piso definidos, para que o registro reflita a relação real entre eleito e eleitor - e não o esquecimento nem o apagamento por inércia.</p>
+<style>
+.vb-qs{position:relative;overflow:hidden;box-sizing:border-box;max-width:760px;margin:0 auto;padding:40px 36px;line-height:1.78;color:#eaf2ff;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));border:1px solid rgba(0,151,57,.3);border-radius:22px;box-shadow:0 16px 54px rgba(0,0,0,.42)}
+.vb-qs::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#009739,#FFD700,#009739)}
+.vb-qs .eyebrow{text-transform:uppercase;letter-spacing:.2em;font-size:.72em;font-weight:700;color:#FFD700;margin:0 0 12px}
+.vb-qs h2.title{font-size:1.78em;line-height:1.22;font-weight:800;color:#fff;margin:0 0 4px;letter-spacing:-.01em}
+.vb-qs .rule{height:3px;width:70px;border-radius:3px;background:linear-gradient(90deg,#009739,#FFD700);margin:16px 0 26px}
+.vb-qs h3.sec{margin:34px 0 14px;padding-left:15px;border-left:3px solid #009739;font-size:1.12em;font-weight:700;color:#fff;letter-spacing:.005em;line-height:1.3}
+.vb-qs p{margin:0 0 17px;color:rgba(234,242,255,.93)}
+.vb-qs strong{color:#fff;font-weight:700}
+.vb-qs em{color:#cfe9d8;font-style:italic}
+.vb-qs ol.steps{list-style:none;counter-reset:s;padding:0;margin:6px 0 18px}
+.vb-qs ol.steps li{counter-increment:s;position:relative;padding:2px 0 2px 48px;margin:0 0 16px;min-height:32px;color:rgba(234,242,255,.93)}
+.vb-qs ol.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#009739,#0a7a2e);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:.92em;box-shadow:0 3px 10px rgba(0,151,57,.45)}
+.vb-qs ul.links{list-style:none;padding:0;margin:6px 0 18px}
+.vb-qs ul.links li{position:relative;padding:7px 0 7px 26px;border-bottom:1px solid rgba(255,255,255,.06)}
+.vb-qs ul.links li:last-child{border-bottom:0}
+.vb-qs ul.links li::before{content:"\\203A";position:absolute;left:6px;top:6px;color:#009739;font-weight:800;font-size:1.1em}
+.vb-qs ul.links a{color:#9ff0bf;text-decoration:none;border-bottom:1px dotted rgba(159,240,191,.4)}
+.vb-qs ul.links a:hover{color:#fff;border-bottom-color:#fff}
+.vb-qs .sign{margin-top:34px;padding-top:20px;border-top:1px dashed rgba(255,255,255,.2)}
+.vb-qs .sign .name{font-weight:800;color:#FFD700;letter-spacing:.02em;font-size:1.06em;margin:0 0 16px}
+.vb-qs .sign .motto{text-align:center;font-style:italic;color:rgba(234,242,255,.82);font-size:1.08em;margin:0;line-height:1.5}
+.vb-qs .legal{margin-top:30px;padding-top:16px;border-top:1px solid rgba(255,255,255,.1);font-size:.76em;line-height:1.55;opacity:.55;text-align:center;color:#eaf2ff}
+@media(max-width:640px){.vb-qs{padding:28px 18px;border-radius:16px}.vb-qs h2.title{font-size:1.46em}.vb-qs h3.sec{font-size:1.04em;margin-top:28px}.vb-qs ol.steps li{padding-left:44px}.vb-qs ol.steps li::before{width:28px;height:28px;font-size:.86em}}
+</style>
+<div class="vb-qs">
+ <div class="eyebrow">Quem Somos</div>
+ <h2 class="title">O poder emana do povo — e não acaba no dia da eleição.</h2>
+ <div class="rule"></div>
+ <p>O <strong>VotaBrasil</strong> é uma plataforma cívica de <strong>voto contínuo e revogável</strong>. Nossa tese cabe em uma frase: <em>seu voto coloca, e seu voto tira</em>. Entre uma eleição e outra, o cidadão hoje entrega um cheque em branco de quatro anos e espera. Nós acreditamos que mandato é contrato — e contrato se fiscaliza, se cobra e, quando descumprido, se encerra. Não por golpe, não por rua, não por tapetão: por regra clara, escrita e auditável por quem elegeu.</p>
+ <h3 class="sec">O problema que existia antes de nós</h3>
+ <p>Depois da posse, o eleitor vira espectador. Não há ferramenta simples para dizer “este representante não me representa mais”. A desconfiança cresce porque falta checagem: o cidadão confia ou desconfia no escuro, sem conseguir provar nem o próprio voto, nem a conduta de quem o recebeu. Resultado: abstenção, raiva sem saída e a sensação de que democracia é evento de dois em dois anos, não prática diária.</p>
+ <h3 class="sec">O que propomos</h3>
+ <p>Um <strong>termômetro de confiança</strong> público por político, alimentado por dados oficiais e pela voz de quem elegeu. A régua é objetiva: <strong>70% dos votos que elegeram um representante equivalem à cassação do mandato</strong> — a revogação abre após a posse e permanece durante todo o exercício. A confiança não é estática: o termômetro esfria com o tempo quando não há sinais novos de cumprimento, com janela e piso definidos, para que o registro reflita a relação real entre eleito e eleitor — e não o esquecimento nem o apagamento por inércia.</p>
  <p>Ao lado do termômetro, três ferramentas de participação: o <strong>Radar Político</strong> (ficha completa, reclamações e comparações lado a lado), o <strong>Congresso</strong> (opinião sobre projetos de lei em tramitação, via dados da Câmara) e o <strong>Fundo Eleitoral</strong> (de onde vem e para onde vai o dinheiro público, com fonte oficial).</p>
- <h3>Como funciona, hoje</h3>
- <ol>
-  <li><strong>Escolha no app.</strong> Você monta sua cédula com candidatos reais, foto, partido e número - sem cola eleitoral, sem cifra decorada.</li>
+ <h3 class="sec">Como funciona, hoje</h3>
+ <ol class="steps">
+  <li><strong>Escolha no app.</strong> Você monta sua cédula com candidatos reais, foto, partido e número — sem cola eleitoral, sem cifra decorada.</li>
   <li><strong>Guarde o código.</strong> Cada voto gera um comprovante de <strong>20 dígitos</strong>. É seu, é seu só seu.</li>
   <li><strong>Confira aqui.</strong> No site, você cola o código e vê, cargo a cargo, em quem votou. O código <strong>não vincula sua identidade</strong> ao voto: a conferência é sua, o sigilo é do eleitor.</li>
  </ol>
- <p>E, se o representado não cumprir, o mesmo caminho que colocou permite <strong>revogar</strong> - com a regra dos 70% valendo como contrato.</p>
- <h3>De onde vêm os dados</h3>
- <p>Tudo que afirmamos nasce de fonte pública e verificável: <strong>TSE</strong> (candidaturas e prestações de contas), <strong>Câmara dos Deputados</strong>, <strong>Senado Federal</strong>, <strong>Portal da Transparência</strong> e <strong>CNJ</strong>. Publicamos também uma <strong>API de dados abertos</strong> (licença CC-BY 4.0) para que qualquer pessoa, jornal ou pesquisador possa reconstruir o que mostramos - inclusive melhor. Não inventamos número: se o dado oficial ainda não existe, dizemos que ainda não existe.</p>
- <h3>O que <em>não</em> somos</h3>
- <p>Não somos partido. Não somos sindicato, movimento ou facção. Não somos tribunal nem substituímos a Justiça Eleitoral, o TSE ou o Congresso. <strong>Não temos valor jurídico</strong>: hoje somos um protótipo demonstrativo - votos são simulados, a revogação é educativa. Nosso papel é provar o conceito, educar o eleitor e pressionar, com dados, por uma regra que um dia seja lei. Também não vendemos dado, não fazemos microtargeting e não monetizamos a confiança de ninguém.</p>
- <h3>Privacidade e segurança</h3>
- <p>O voto é anônimo por desenho. O comprovante de 20 dígitos existe para que <strong>você</strong> prove a si mesmo que seu voto está íntegro - não para que alguém prove quem você é. A trilha de verificação é auditável sem expor o eleitor. Dados pessoais não são produto.</p>
- <h3>Nossa história</h3>
+ <p>E, se o representado não cumprir, o mesmo caminho que colocou permite <strong>revogar</strong> — com a regra dos 70% valendo como contrato.</p>
+ <h3 class="sec">De onde vêm os dados</h3>
+ <p>Tudo que afirmamos nasce de fonte pública e verificável: <strong>TSE</strong> (candidaturas e prestações de contas), <strong>Câmara dos Deputados</strong>, <strong>Senado Federal</strong>, <strong>Portal da Transparência</strong> e <strong>CNJ</strong>. Publicamos também uma <strong>API de dados abertos</strong> (licença CC-BY 4.0) para que qualquer pessoa, jornal ou pesquisador possa reconstruir o que mostramos — inclusive melhor. Não inventamos número: se o dado oficial ainda não existe, dizemos que ainda não existe.</p>
+ <h3 class="sec">O que <em>não</em> somos</h3>
+ <p>Não somos partido. Não somos sindicato, movimento ou facção. Não somos tribunal nem substituímos a Justiça Eleitoral, o TSE ou o Congresso. <strong>Não temos valor jurídico</strong>: hoje somos um protótipo demonstrativo — votos são simulados, a revogação é educativa. Nosso papel é provar o conceito, educar o eleitor e pressionar, com dados, por uma regra que um dia seja lei. Também não vendemos dado, não fazemos microtargeting e não monetizamos a confiança de ninguém.</p>
+ <h3 class="sec">Privacidade e segurança</h3>
+ <p>O voto é anônimo por desenho. O comprovante de 20 dígitos existe para que <strong>você</strong> prove a si mesmo que seu voto está íntegro — não para que alguém prove quem você é. A trilha de verificação é auditável sem expor o eleitor. Dados pessoais não são produto.</p>
+ <h3 class="sec">Nossa história</h3>
  <p>Construído à mão, sem agência por trás, sem interesse partidário, com backend real e dados públicos na capa. Porque transparência não se delega: quem mostra o número tem que mostrar de onde ele veio.</p>
- <h3>Fale com a gente</h3>
- <ul>
-  <li>Geral: contato@mudabrasil.app</li>
-  <li>Imprensa: imprensa@mudabrasil.app</li>
-  <li>Parcerias e anúncios cívicos: anuncie@mudabrasil.app</li>
+ <h3 class="sec">Fale com a gente</h3>
+ <ul class="links">
+  <li>Geral: <a href="mailto:contato@mudabrasil.app">contato@mudabrasil.app</a></li>
+  <li>Imprensa: <a href="mailto:imprensa@mudabrasil.app">imprensa@mudabrasil.app</a></li>
+  <li>Parcerias e anúncios cívicos: <a href="mailto:anuncie@mudabrasil.app">anuncie@mudabrasil.app</a></li>
  </ul>
- <h3>A equipe</h3>
- <p>Uma família construindo, na prática, a ferramenta que gostaríamos que existisse para o Brasil - pequena o bastante para não ter dono oculto, séria o bastante para citar fonte em cada número. Somos dois: eu e minha filha, <strong>Ludimila Antunes Rodrigues Nikelatto</strong>. Se um dia isto virar lei, não será por nós: será por quem acreditou que esse projeto é possível. Mas o primeiro tijolo foi nosso.</p>
- <p style="margin:.7em 0 .1em"><strong>Euler Rodrigues Pereira</strong></p>
- <p style="font-style:italic;opacity:.85;margin:.1em 0 0">O poder emana do povo - e, aqui, começou em casa.</p>
- <hr style="margin:18px 0;border:0;border-top:1px solid rgba(255,255,255,.12)">
- <p style="font-size:.8em;opacity:.6;margin:0">Protótipo demonstrativo, sem valor jurídico. Votos simulados; dados públicos de fontes oficiais. Conteúdo sob CC-BY 4.0 quando publicado via API. (c) 2026 VotaBrasil.</p>
+ <h3 class="sec">A equipe</h3>
+ <p>Uma família construindo, na prática, a ferramenta que gostaríamos que existisse para o Brasil — pequena o bastante para não ter dono oculto, séria o bastante para citar fonte em cada número. Somos dois: eu e minha filha, <strong>Ludimila Antunes Rodrigues Nikelatto</strong>. Se um dia isto virar lei, não será por nós: será por quem acreditou que esse projeto é possível. Mas o primeiro tijolo foi nosso.</p>
+ <div class="sign">
+  <p class="name">Euler Rodrigues Pereira</p>
+  <p class="motto">O poder emana do povo — e, aqui, começou em casa.</p>
+ </div>
+ <p class="legal">Protótipo demonstrativo, sem valor jurídico. Votos simulados; dados públicos de fontes oficiais. Conteúdo sob CC-BY 4.0 quando publicado via API. © 2026 VotaBrasil.</p>
 </div>
   `;
   function semAcc(s){return (s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();}
@@ -1067,7 +1094,7 @@ setTimeout(initSSE, 2000);
     for(i=0;i<els.length;i++){el=els[i];if(el.closest('nav')||el.closest('header'))continue;var t=semAcc(el.textContent);for(var k=0;k<SENT.length;k++){if(t.indexOf(SENT[k])>-1){c=sobe(el);if(ehQuem(c))return c;break;}}}
     return null;
   }
-  function aplicar(){var c=achar();if(!c)return false;c.innerHTML=TEXTO;c.setAttribute('data-vbqs','1');console.log('[vb-quem-somos] aplicado em',c.tagName,c.id||c.className);return true;}
+  function aplicar(){var c=achar();if(!c)return false;c.innerHTML=TEXTO;c.setAttribute('data-vbqs','1');console.log('[vb-quem-somos] layout elegante aplicado');return true;}
   var n=0,tm=setInterval(function(){if(aplicar()||++n>40)clearInterval(tm);},250);
   window.addEventListener('load',function(){setTimeout(aplicar,150);});
 })();
