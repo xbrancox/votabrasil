@@ -40,7 +40,7 @@ self.addEventListener('fetch', e => {
       return fetch(e.request).then(response => {
         const copy = response.clone();
         caches.open(CACHE).then(c => {
-          c.put(e.request, copy);
+          if(new URL(e.request.url).protocol==="https:"){c.put(e.request, copy);}
         });
         return response;
       }).catch(() => {
