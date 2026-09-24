@@ -959,7 +959,7 @@ if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch
     var tem=c.lista&&c.lista.length>0;
     var falta=c.tot>c.p;
     b.style.display=(tem&&falta)?'block':'none';
-    b.textContent='Carregar mais (pag '+c.p+'/'+c.t+') >';
+    b.textContent='Carregar mais (pag '+c.p+'/'+c.tot+') >';
   }
   setInterval(atual,1000);
   document.body.appendChild(b);
