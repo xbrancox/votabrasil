@@ -971,5 +971,46 @@ setTimeout(initSSE, 2000);
   }).catch(function(e){console.warn('fundo-eleitoral:',e)});
 })();
 </script>
+<script id="vb-hist-fe">
+(function(){
+  function fmt(v){return 'R$ '+Number(v).toLocaleString('pt-BR',{maximumFractionDigits:0})}
+  fetch('data/fundo-candidatos-historico.json').then(function(r){return r.json()}).then(function(d){
+    var hs=[].slice.call(document.querySelectorAll('h1,h2,h3,h4'));
+    var h=hs.filter(function(x){return /Fundo Eleitoral/i.test(x.textContent)})[0];
+    var sec=h?(h.closest('section')||h.parentElement.parentElement):document.body;
+    var box=document.createElement('div');
+    box.style.cssText='margin:18px 0;padding:16px;border:1px solid #23406b;border-radius:12px;background:#0e1c33';
+    box.innerHTML='<h3 style="margin:0 0 8px">Por que ainda nao aparece o valor por candidato em 2026?</h3>'+
+    '<ol style="margin:0;padding-left:20px;line-height:1.55">'+
+    '<li>O Fundo Eleitoral e repassado aos <b>partidos</b> - esses valores ja estao aqui, com fonte oficial (TSE, Resolucao 23.749/2026).</li>'+
+    '<li>A distribuicao <b>por candidato</b> e informada por cada campanha ao TSE na prestacao de contas: parciais durante a campanha (set-out/2026) e prestacao final apos a eleicao (nov-dez/2026).</li>'+
+    '<li><b>Ate essa publicacao, valores por candidato referentes a 2026 nao tem carater oficial</b> - o que circula antes disso sao estimativas ou projecoes, nao dados da fonte publica.</li>'+
+    '<li>Por isso, mostramos hoje: o total oficial por partido (2026) + o historico real da ultima eleicao para estes mesmos cargos (<b>2022</b>). Assim que o TSE publicar os dados de 2026, eles entram aqui automaticamente, com a mesma fonte.</li>'+
+    '</ol>'+
+    '<div style="margin:14px 0 6px;font-weight:700">Ultima eleicao para estes mesmos cargos: 2022 · '+d.totalCandidatos+' candidatos receberam FEFC · total '+fmt(d.totalRepassado)+'</div>'+
+    '<input id="vb-hist-q" type="text" placeholder="Buscar por nome, partido ou UF..." style="width:100%;padding:10px;border:1px solid #23406b;border-radius:8px;background:#0b1526;color:#eaf2ff;margin:6px 0">'+
+    '<div id="vb-hist-list"></div>'+
+    '<button id="vb-hist-more" style="margin:10px 0;padding:10px 16px;border:0;border-radius:8px;background:#009739;color:#fff;font-weight:700;cursor:pointer">Carregar mais</button>'+
+    '<div style="margin-top:8px;font-size:.85em;opacity:.75">Fonte: '+d.fonte+'</div>';
+    sec.appendChild(box);
+    var list=box.querySelector('#vb-hist-list'),q=box.querySelector('#vb-hist-q'),more=box.querySelector('#vb-hist-more');
+    var view=[],shown=0;
+    function render(reset){
+      if(reset){shown=0;list.innerHTML=''}
+      var frag=view.slice(shown,shown+100);
+      shown+=frag.length;
+      list.innerHTML+=frag.map(function(x){return '<div style="padding:8px 10px;border-bottom:1px solid #1b2f4d"><b>'+x.n+'</b> ('+x.p+'/'+x.uf+') - '+x.c+'<div style="color:#7ee2a8;font-weight:700">'+fmt(x.t)+'</div></div>'}).join('');
+      more.style.display=(shown<view.length)?'inline-block':'none';
+    }
+    q.addEventListener('input',function(){
+      var s=q.value.toLowerCase();
+      view=d.candidatos.filter(function(x){return !s||x.n.toLowerCase().indexOf(s)>-1||x.p.toLowerCase().indexOf(s)>-1||x.uf.toLowerCase().indexOf(s)>-1});
+      render(true);
+    });
+    more.addEventListener('click',function(){render(false)});
+    view=d.candidatos;render(true);
+  }).catch(function(e){console.warn('hist-fe:',e)});
+})();
+</script>
 </body>
 </html>
