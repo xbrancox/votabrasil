@@ -1029,7 +1029,7 @@ setTimeout(initSSE, 2000);
 .vb-qs em{color:#cfe9d8;font-style:italic}
 .vb-qs .sign{margin-top:34px;padding-top:20px;border-top:1px dashed rgba(255,255,255,.2)}
 .vb-qs .sign .name{font-weight:800;color:#FFD700;letter-spacing:.02em;font-size:1.06em;margin:0 0 16px}
-.vb-qs .sign .motto{text-align:center;font-style:italic;color:rgba(234,242,255,.82);font-size:1.08em;margin:0;line-height:1.5}
+.vb-qs .sign .motto{text-align:left;font-style:italic;color:rgba(234,242,255,.82);font-size:1.08em;margin:0;line-height:1.5}
 .vb-qs .legal{margin-top:30px;padding-top:16px;border-top:1px solid rgba(255,255,255,.1);font-size:.76em;line-height:1.55;opacity:.55;text-align:center;color:#eaf2ff}
 @media(max-width:640px){.vb-qs{padding:28px 18px;border-radius:16px}.vb-qs h2.title{font-size:1.46em}.vb-qs h3.sec{font-size:1.04em;margin-top:28px}}
 </style>
@@ -1073,9 +1073,62 @@ setTimeout(initSSE, 2000);
     for(i=0;i<els.length;i++){el=els[i];if(el.closest('nav')||el.closest('header'))continue;var t=semAcc(el.textContent);for(var k=0;k<SENT.length;k++){if(t.indexOf(SENT[k])>-1){c=sobe(el);if(ehQuem(c))return c;break;}}}
     return null;
   }
-  function aplicar(){var c=achar();if(!c)return false;c.innerHTML=TEXTO;c.setAttribute('data-vbqs','1');console.log('[vb-quem-somos] manifesto enxuto aplicado');return true;}
+  function aplicar(){var c=achar();if(!c)return false;c.innerHTML=TEXTO;c.setAttribute('data-vbqs','1');console.log('[vb-quem-somos] epigrafe a esquerda');return true;}
   var n=0,tm=setInterval(function(){if(aplicar()||++n>40)clearInterval(tm);},250);
   window.addEventListener('load',function(){setTimeout(aplicar,150);});
+})();
+</script>
+<script id="vb-close-highlight">
+(function(){
+  if(document.getElementById('vb-close-hi-style'))return;
+  var st=document.createElement('style');st.id='vb-close-hi-style';
+  st.textContent='#vb-close-hi{min-width:34px!important;min-height:34px!important;width:34px!important;height:34px!important;background:#FFD700!important;color:#0B132B!important;font-size:20px!important;font-weight:800!important;line-height:1!important;border:2px solid #0B132B!important;border-radius:50%!important;box-shadow:0 0 0 3px rgba(255,215,0,.35),0 4px 12px rgba(0,0,0,.5)!important;cursor:pointer!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:0!important;opacity:1!important;transition:transform .12s ease,box-shadow .12s ease!important}#vb-close-hi:hover{transform:scale(1.12)!important;background:#fff!important;box-shadow:0 0 0 4px rgba(255,255,255,.5),0 6px 16px rgba(0,0,0,.6)!important}';
+  document.head.appendChild(st);
+  var RE_TITLE=/^prot[o\u00F3]tipo demonstrativo$/i;
+  var RE_X=/^[\u00D7\u2715\u2716xX]$/;
+  function isClose(el){
+    if(!el)return false;
+    var t=(el.textContent||'').trim();
+    if(RE_X.test(t))return true;
+    var al=(el.getAttribute&&el.getAttribute('aria-label'))||'';
+    if(/fechar|close|dismiss|\u00D7|\u2715/i.test(al))return true;
+    return false;
+  }
+  function hasClose(root){
+    var c=root.querySelectorAll('button,a,span,i,svg,[role="button"]');
+    for(var i=0;i<c.length;i++){ if(isClose(c[i]))return true; }
+    return false;
+  }
+  function titleNode(){
+    var els=document.querySelectorAll('h1,h2,h3,h4,strong,b,span,div,p,em');
+    for(var i=0;i<els.length;i++){ var t=(els[i].textContent||'').trim(); if(RE_TITLE.test(t))return els[i]; }
+    return null;
+  }
+  function cardOf(node){
+    var p=node,prev=null;
+    while(p&&p!==document.body){
+      var h=p.offsetHeight||0;
+      if(h>=40&&h<=260){ if(hasClose(p))return p; }
+      if(h>260)break;
+      prev=p;p=p.parentElement;
+    }
+    return prev||node.parentElement;
+  }
+  function apply(){
+    var tn=titleNode(); if(!tn)return false;
+    var card=cardOf(tn); if(!card)return false;
+    var cands=card.querySelectorAll('button,a,span,i,svg,[role="button"]');
+    var hit=null;
+    for(var j=0;j<cands.length;j++){ if(isClose(cands[j])){ hit=cands[j]; break; } }
+    if(!hit)return false;
+    if(hit.id==='vb-close-hi')return true;
+    hit.setAttribute('id','vb-close-hi');
+    hit.setAttribute('title','Fechar aviso');
+    hit.setAttribute('aria-label','Fechar aviso');
+    return true;
+  }
+  var n=0,tm=setInterval(function(){ if(apply()||++n>80)clearInterval(tm); },300);
+  window.addEventListener('load',function(){ setTimeout(apply,250); });
 })();
 </script>
 </body>
