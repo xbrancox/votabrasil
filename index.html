@@ -950,5 +950,26 @@ setTimeout(initSSE, 2000);
   <script src="dashboard-politico.js" defer></script>
   <script src="gamificacao.js" defer></script>
   <script src="api-publica.js" defer></script>
+<script id="vb-fundo-render">
+(function(){
+  var host='data/fundo-eleitoral.json';
+  fetch(host).then(function(r){return r.json()}).then(function(fe){
+    var section=document.querySelector('[id*="fundo" i],[href*="fundo" i]');
+    var container=section?section.closest('section')||section:null;
+    if(!container){
+      var h=document.querySelector('h2');while(h && !/Fundo Eleitoral/i.test(h.textContent))h=h.nextElementSibling;
+      if(h)container=h.parentNode;
+    }
+    if(!container)return;
+    var html='<div style="margin:18px 0"><strong>Total distribuido em 2026:</strong> R$ '+(fe.totalGeral/1e6).toFixed(0)+' milhoes ('+fe.totalPartidos+' partidos)</div>';
+    html+='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;max-height:420px;overflow-y:auto;padding:6px">';
+    fe.partidos.slice().sort(function(a,b){return b.valor-a.valor}).forEach(function(p){
+      html+='<div style="border:1px solid #ddd;border-radius:10px;padding:10px;background:#fafafa"><b>'+p.sigla+'</b><div style="font-size:1.4em;color:#009739;font-weight:700;margin:6px 0">R$ '+(p.valor/1e6).toFixed(1)+' mi</div></div>';
+    });
+    html+='</div><div style="margin-top:10px;font-size:.85em;color:#666">Fonte: '+fe.fonte+' | '+fe.observacao+'</div>';
+    var box=document.createElement('div');box.innerHTML=html;container.appendChild(box);
+  }).catch(function(e){console.warn('fundo-eleitoral:',e)});
+})();
+</script>
 </body>
 </html>
