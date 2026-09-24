@@ -3,6 +3,11 @@
 > Gate de producao: NENHUM item abaixo pode ficar aberto quando dermos o site como "online".
 > Origem do lembrete: Euler, 2026-09-25 - "modificar email/contatos etc antes de entrarmos online".
 > Regra de ouro: e-mail novo so entra depois que o dominio tiver MX ativo (senao o contato MORRE).
+## Progresso registrado (execucao automatica, nao promessa de chat)
+- [x] Balde A do index.html (2026-09-25): marca capitalizada 'MudaBrasil' -> 'VotaBrasil' em TODO texto visivel, meta (title/description/og/theme-color) e structured-data json. Preservados DE PROPOSITO: chave global window.MudaBrasil (em script) e dominio/email minusculos 'mudabrasil.app' (Balde B, aguarda MX).
+- [ ] config.js: NAO tocado. E-mails = Balde B (MX). Chave global + API_BASE + console boot = Balde C (grep de app/pages/modulos + infra).
+- [ ] manifest .webmanifest, pages/*.html, app/index.html, templates: pendentes (mesma tecnica do index quando autorizado).
+- Gate final (item 6) continua ABERTO ate Balde B + C resolvidos.
 
 ## 0. Ordem segura de execucao
 1. Infra (dominio + Railway) -> 2. Chave global (com grep) -> 3. HTML estatico -> 4. E-mails (so apos MX) -> 5. Gate de validacao.
