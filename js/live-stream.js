@@ -24,7 +24,7 @@
        relativa ('') quando servido por http(s) na mesma origem do backend. */
     const API = (window.VotaBrasil && typeof window.VotaBrasil.API_BASE === 'string')
       ? window.VotaBrasil.API_BASE
-      : 'https://mudabrasil-redesign-production.up.railway.app';
+      : 'https://mudabrasil-production-79eb.up.railway.app';
     let es = null;
     let timer = null;
     let sseFails = 0;

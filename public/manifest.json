@@ -1,0 +1,20 @@
+{
+    "theme_color":  "#009739",
+    "name":  "VotaBrasil",
+    "display":  "standalone",
+    "short_name":  "VotaBR",
+    "background_color":  "#0b132b",
+    "start_url":  "/",
+    "icons":  [
+                  {
+                      "type":  "image/svg+xml",
+                      "sizes":  "any",
+                      "src":  "/assets/icon.svg"
+                  },
+                  {
+                      "type":  "image/svg+xml",
+                      "sizes":  "any",
+                      "src":  "/assets/logo.svg"
+                  }
+              ]
+}

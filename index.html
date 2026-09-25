@@ -180,6 +180,8 @@ footer{background:#08142e;border-top:1px solid var(--line);padding:44px 0 20px;m
 @media(max-width:960px){#radList{grid-template-columns:1fr}.explore{grid-template-columns:repeat(2,1fr)}.donuts{grid-template-columns:repeat(2,1fr)}.steps{grid-template-columns:1fr}.filtros{grid-template-columns:1fr 1fr}.ft{grid-template-columns:1fr 1fr}.stats{grid-template-columns:repeat(2,1fr)}nav{display:none}.ham{display:inline-flex}}
 </style>
   <script src="js/site-header.js?v=3"></script>
+<link rel="icon" type="image/svg+xml" href="/assets/icon.svg">
+<link rel="manifest" href="/manifest.json">
 </head>
 <body>
 
@@ -1131,6 +1133,76 @@ setTimeout(initSSE, 2000);
   }
   var n=0,tm=setInterval(function(){ if(apply()||++n>80)clearInterval(tm); },300);
   window.addEventListener('load',function(){ setTimeout(apply,250); });
+})();
+</script>
+<script id="vb-print-fixes">
+(function(){
+if(window.__vbpf2)return;window.__vbpf2=1;
+var st=document.createElement('style');st.id='vb-pf2-style';
+st.textContent='.vb-6col{display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:12px!important}@media(max-width:1180px){.vb-6col{grid-template-columns:repeat(3,1fr)!important}}@media(max-width:760px){.vb-6col{grid-template-columns:repeat(2,1fr)!important}}@media(max-width:480px){.vb-6col{grid-template-columns:1fr!important}}#vb-close-hi{min-width:30px!important;min-height:30px!important;width:30px!important;height:30px!important;background:#e11d48!important;color:#fff!important;font-size:18px!important;font-weight:800!important;line-height:1!important;border:2px solid #fff!important;border-radius:50%!important;box-shadow:0 0 0 2px rgba(225,29,72,.45),0 3px 10px rgba(0,0,0,.5)!important;cursor:pointer!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:0!important;opacity:1!important;transition:transform .12s ease!important}#vb-close-hi:hover{transform:scale(1.14)!important;background:#be123c!important}';
+document.head.appendChild(st);
+function sa(s){return (s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();}
+function tx(e){return (e&&e.textContent||'').trim();}
+function logo(){
+ var hdr=document.querySelector('header')||document.querySelector('nav');if(!hdr)return;
+ var img=hdr.querySelector('img[src*="logo"],img[src*="icon"],img[alt*="Vota"],svg');
+ var brand=null;var cs=[].slice.call(hdr.querySelectorAll('a,div,span'));
+ for(var i=0;i<cs.length;i++){var t=sa(tx(cs[i]));if(t==='votabrasil'||t.indexOf('votabrasil')===0){brand=cs[i];break;}}
+ var target=brand||hdr;
+ if(img){img.style.setProperty('width','56px','important');img.style.setProperty('height','56px','important');img.style.setProperty('max-width','none','important');}
+ var ts=[].slice.call(target.querySelectorAll('span,div,p,em,small,b,strong'));
+ for(var k=0;k<ts.length;k++){var tt=sa(tx(ts[k]));if(tt==='votabrasil'||tt.indexOf('participacao')===0){ts[k].style.setProperty('display','none','important');}}
+ if(brand&&brand.setAttribute)brand.setAttribute('aria-label','VotaBrasil');
+}
+function fundo(){
+ fetch('data/fundo-eleitoral.json').then(function(r){return r.json();}).then(function(fe){
+  var total=Number(fe.totalGeral)||1;
+  var ps=(fe.partidos||[]).slice().sort(function(a,b){return (b.valor||0)-(a.valor||0);});
+  var cont=document.querySelector('#fundo-eleitoral,.fundo-eleitoral,[id*="fundo"]');
+  if(!cont){var hs=[].slice.call(document.querySelectorAll('h1,h2,h3'));var h=hs.filter(function(x){return /fundo eleitoral/i.test(tx(x));})[0];if(h)cont=h.closest('section')||h.parentElement.parentElement;}
+  if(!cont)return;
+  var old=cont.querySelector('[data-vbfundo]');if(old)old.remove();
+  var box=document.createElement('div');box.setAttribute('data-vbfundo','1');
+  var g='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:7px">';
+  ps.forEach(function(p,i){var pct=((p.valor||0)/total*100);var val=((p.valor||0)/1e6).toFixed(1);
+   g+='<div style="background:#fff;border:1px solid #d8dee9;border-radius:9px;padding:7px 8px;line-height:1.2"><div style="display:flex;justify-content:space-between;align-items:center"><b style="color:#0b132b;font-size:.9em">'+String(p.sigla)+'</b><span style="font-size:.62em;color:#8a94a6">#'+(i+1)+'</span></div><div style="color:#009739;font-weight:800;font-size:1em;margin:2px 0 4px">R$ '+val+' mi</div><div style="height:4px;border-radius:3px;background:#eef1f5;overflow:hidden"><div style="height:100%;width:'+pct.toFixed(1)+'%;background:#009739"></div></div><div style="font-size:.62em;color:#6b7280;margin-top:3px">'+pct.toFixed(1)+'% do total</div></div>';});
+  g+='</div>';
+  box.innerHTML=g;cont.appendChild(box);
+ }).catch(function(){});
+}
+var RX=/^[\u00D7\u2715\u2716xX]$/;
+function fechar(){
+ var nodes=document.querySelectorAll('button,span,i,a,[role="button"],div');
+ for(var i=0;i<nodes.length;i++){
+  if(!RX.test(tx(nodes[i])))continue;
+  var p=nodes[i],card=null;
+  for(var k=0;k<7&&p;k++){var t=(p.textContent||'');if(/prot[o\u00F3]tipo/i.test(t)&&/jur[i\u00ED]dico/i.test(t)){card=p;break;}p=p.parentElement;}
+  if(card){nodes[i].setAttribute('id','vb-close-hi');return true;}
+ }
+ return false;
+}
+var MAP={'comparar':{t:'Quem Somos',d:'Nossa hist\u00F3ria, princ\u00EDpios e a equipe por tr\u00E1s do projeto.',cta:'Conhecer \u2192',href:'#quem-somos'},'fundo eleitoral':{t:'Elei\u00E7\u00F5es 2026',d:'Candidatos reais do TSE por cargo, UF e situa\u00E7\u00E3o.',cta:'Ver candidatos \u2192',href:'pages/eleicoes-2026.html'}};
+function explore(){
+ var hs=[].slice.call(document.querySelectorAll('h1,h2,h3'));
+ var expH=hs.filter(function(x){return sa(tx(x)).indexOf('explore o votabrasil')>-1;})[0];
+ var sec=expH?(expH.closest('section')||expH.parentElement.parentElement):null;if(!sec)return false;
+ var all=[].slice.call(sec.querySelectorAll('h1,h2,h3,h4,strong,b,div,span,p'));
+ var grid=null;
+ Object.keys(MAP).forEach(function(key){
+  var target=all.filter(function(e){return sa(tx(e))===key&&e.children.length===0;})[0];if(!target)return;
+  var card=target;for(var u=0;u<6&&card;u++){if(card.querySelector&&card.querySelector('a[href],button'))break;card=card.parentElement;}
+  if(!card)return;if(!grid)grid=card.parentElement;
+  var m=MAP[key];target.textContent=m.t;
+  var ps=[].slice.call(card.querySelectorAll('p,span,div')).filter(function(e){return e!==target&&tx(e).length>10&&!(e.querySelector&&e.querySelector('a[href],button'));});
+  if(ps.length)ps[0].textContent=m.d;
+  var cta=card.querySelector('a[href],button');if(cta){cta.setAttribute('href',m.href);cta.textContent=m.cta;}
+ });
+ if(grid)grid.classList.add('vb-6col');
+ return true;
+}
+function work(){logo();fundo();fechar();explore();}
+var n=0,tm=setInterval(function(){work();if(++n>60)clearInterval(tm);},400);
+window.addEventListener('load',function(){setTimeout(work,250);});
 })();
 </script>
 </body>

@@ -173,7 +173,7 @@ h2{margin:26px 0 10px}
 </div></div>
 
 <script>
-const API=(window.VotaBrasil&&typeof window.VotaBrasil.API_BASE==='string')?window.VotaBrasil.API_BASE:'https://mudabrasil-redesign-production.up.railway.app';
+const API=(window.VotaBrasil&&typeof window.VotaBrasil.API_BASE==='string')?window.VotaBrasil.API_BASE:'https://mudabrasil-production-79eb.up.railway.app';
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const LS={get(k,d){try{const v=JSON.parse(localStorage.getItem(k));return v==null?d:v}catch(e){return d}},set(k,v){localStorage.setItem(k,JSON.stringify(v))}};
 let PLS=[],VOT=[],VOTOS={},MAPVOT={},POVO={},temaAtivo='',perAtivo=30,pular=[],fila=[],ultimaKey='';

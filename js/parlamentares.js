@@ -16,7 +16,7 @@
      NUNCA usar || com API_BASE — o valor '' (mesma origem) é válido e sumiria. */
   const API = (window.VotaBrasil && typeof window.VotaBrasil.API_BASE === 'string')
     ? window.VotaBrasil.API_BASE
-    : 'https://mudabrasil-redesign-production.up.railway.app';
+    : 'https://mudabrasil-production-79eb.up.railway.app';
 
   const session = () => {
     try { return JSON.parse(localStorage.getItem('votabrasil.session') || 'null'); }
